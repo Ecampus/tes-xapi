@@ -1,1 +1,1 @@
-# tes-xapi
+- initial pass at xAPI attendance recipe
