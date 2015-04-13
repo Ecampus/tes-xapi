@@ -47,7 +47,7 @@ If what is being attended is **unspecified**, you can use the "event" activity t
 
 ## Simple Attendance
 
-> **TODO** based on NOTE from Andrew: Do we need opening and closing in a bare minimum version. It'd be nice for systems that don't do detailed tracking to be able to say in 1 statement that Joe, Bob and Sue had a meeting lasting 1 hour covering X topic.
+> **TODO** based on **NOTE from Andrew**: "Do we need opening and closing in a bare minimum version. It'd be nice for systems that don't do detailed tracking to be able to say in 1 statement that Joe, Bob and Sue had a meeting lasting 1 hour covering X topic." Have to add minutes below.
 
 You might just want to record something like this:
 
@@ -153,32 +153,37 @@ All statements like this about a particular meeting, tutorial session, or whatev
 
 Here's a table of all the statements this recipe covers (see "Discussion" below for details):
 
-Actor                       | Verb                                                             | Object                
-----------------------------|------------------------------------------------------------------|------------------------
-Agent who initialised       | initialize: [ref](http://adlnet.gov/expapi/verbs/initialized)    | what is being attended 
-Agent who opened object     | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               
-Attendee who registered     | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               
-Attendee who unregistered   | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above               
-Agent who started timer     | started: [ref](http://activitystrea.ms/schema/1.0/start)         | as above               
-Attendee who joined         | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               
-Attendee who left           | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               
-Agent who paused timer      | paused: [ref](http://id.tincanapi.com/verb/paused)               | as above               
-Agent who resumed timer     | resume: [ref](http://adlnet.gov/expapi/verbs/resumed)            | as above               
-Agent who commented         | comment: [ref](http://adlnet.gov/expapi/verbs/commented)         | as above               
-Agent who closed attendance | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above   
+Actor                                     | Verb                                                             | Object                
+------------------------------------------|------------------------------------------------------------------|------------------------
+Agent who initialised the object          | initialize: [ref](http://adlnet.gov/expapi/verbs/initialized)    | what is being attended 
+Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               
+Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               
+Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above                          
+Attendee who joined the object            | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               
+Attendee who left the object              | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               
+Agent who adjourned the object            | adjourned: IRI REQUIRED                                          | as above               
+Agent who resumed the object              | resume: [ref](http://adlnet.gov/expapi/verbs/resumed)            | as above                           
+Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above   
 
 The Tincan [registry](https://registry.tincanapi.com/#home/verbs) provides the complete list of xAPI verbs from which these were derived.
 
 Other verbs are beyond the scope of this recipe: 
 
 - **scheduling and invitations** with verbs such as assigned, Scheduled, acknowledged, rsvped yes, RSVPed maybe, rsvped no, invited, received, opened, confirmed, and so on;
-- **commentary** on what is being attended, e.g. statements using the commented verb;
+- **commentary** on what is being attended, e.g. statements using the commented verb.
+
+Other aspects beyond the scope of this recipe:
+
 - **sharing agenda and minutes** before and after what is to be or was attended;
 - **results** of attendance.
 
-> NOTE: link to other recipes here.
-
 ### Discussion
+
+##### Initialising
+
+Optionally, you can state that an instance of, say, meeting has been *created*. An admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
+
+	Ken initialized the meeting
 
 #### Who Will Be Attending?
 
@@ -195,9 +200,11 @@ Note: the list of people who registered as possibly attending is *distinct from*
 
 #### Opening
 
-Optionally, **open** the meeting.
+Optionally, **open** the meeting. You do this when you start proceedings. You only open the meeting once.
 
 	Jeff opened the meeting.
+
+(If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
 
 #### Who Actually Attended
 
@@ -209,21 +216,21 @@ You can record who *actually* attended or didn't attend.
 
 You can send *multiple* **joined** and **left** statements over time for attendees. This allows you to record comings and goings. This would be analogous to some sort of "sign in" and "sign out" paperwork.
 
-#### Timing Attendance as Whole
+#### Timing Attendance as a Whole
 
 Optionally, you can **time attendance** for the meeting as a whole.
 
-	Jeff started the meeting
+A timer would start when the meeting is opened.
 
-You can **pause** timing of the attendance:
+You can halt timing by adjourning the meeting:
 
-	Jeff paused the meeting
+	Jeff adjourned the meeting
 
-And **resume** timing:
+And continue timing the meeting by **resuming** it:
 
 	Jeff resumed the meeting
 	
-You can **pause** and **resume** as many times as you wish.
+You can **adjourn** and **resume** as many times as you wish.
 
 #### Closing
 
@@ -253,11 +260,10 @@ And with some attendees joining the meeting:
 Or, perhaps with some timing:
 	
 	Jeff opened the meeting
-	Jeff started the meeting
 	Kylie joined the meeting
 	Ken joined the meeting
 	Kylie left the meeting
-	Jeff paused the meeting
+	Jeff adjourned the meeting
 
 ... some time later ...
 	
@@ -322,15 +328,15 @@ In this example *Jeff* is the instructor.
 
 Often the instructor will *also* be the authority.
 
-Sometimes, you may find the instructor is not the person logged in and recording attendance. (You might have an instructor or group of instructors running the session and somebody else taking attendance for example.)
+Sometimes, you may find the instructor is not the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
 
-To note this you will need to add an context.observer agent to the context the statement.
+To note this you will need to add a **context.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
 
 ```js
 "context": {
 	...
 	"extensions": { 
-	           "observer iri required": {
+	           "observer IRI REQUIRED": {
 	           	"name": "Ken Admin", 
 	           	"id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
 	           }
@@ -350,7 +356,7 @@ To note this you will need to add an context.observer agent to the context the s
 	  ...
        "category": [ // this is where the Recipe ID goes
            {
-               "id": "IRI of attendance recipe",
+               "id": "IRI REQUIRED of attendance recipe",
                "objectType": "Activity",
                "definition": {
                    "name": {
@@ -454,7 +460,7 @@ Here's a complete example of an entire statement. In this case an "opened" state
             ],
             "category": [ // this is where the Recipe ID goes
                 {
-                    "id": "IRI of attendance recipe",
+                    "id": "IRI REQUIRED of attendance recipe",
                     "objectType": "Activity",
                     "definition": {
                         "name": {
@@ -516,7 +522,7 @@ Here's a complete example of an entire statement. In this case an "opened" state
        	// here's where additional data about the activity can go
        	// e.g. where oauth is not used, the observer is the person using the app to record attendance 
        	// see "Who Or What is Actually Recording Attendance"
-           "observer iri required": {
+           "observer IRI REQUIRED": {
            	"name": "Ken Admin", 
            	"id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
            }
@@ -538,7 +544,7 @@ Here's a complete example of an entire statement. In this case an "opened" state
         "definition": {
             "extensions": { 
             	  // here's where additional info about what is being attended can go, 
-                "room iri required": {
+                "room IRI REQUIRED": {
                 	"name": "Kilby", 
                 	"id" : "http://example.com/rooms/342"
                 }
