@@ -129,7 +129,7 @@ or
 
 	Jeff closed the meeting
 
-All statements like this about a particular meeting, tutorial session, or whatever it may be, would all **refer to a common object id**. E.g.
+All statements like this about a particular meeting, tutorial session, or whatever it may be, would all **refer to a common Activity Id**. E.g.
 
 ```js
 ...
