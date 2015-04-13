@@ -111,6 +111,12 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 	       "type": "http://adlnet.gov/expapi/activities/meeting"
 	   },
 	   "objectType": "Activity"
+	},
+	"result": {
+	   "success": true,
+	   "completion": true,
+	   "response": "We agreed on some example actions.",
+	   "duration": "PT1H0M0S" // the duration of the meeting
 	}
 }
 ```
