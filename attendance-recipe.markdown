@@ -301,15 +301,12 @@ Or with registration:
 	Ken joined the meeting
 	Jeff closed the meeting
 
-### Result -- flagged for removal
+### Result
 
 If the meeting has a "result" then you can record that in a **closed** statement.
 
 ```js
 "result": {
-   "extensions": {
-       "http://example.com/profiles/meetings/resultextensions/minuteslocation": "X:\\meetings\\minutes\\examplemeeting.one"
-   },
    "success": true,
    "completion": true,
    "response": "We agreed on some example actions.",
