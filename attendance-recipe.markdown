@@ -303,7 +303,9 @@ Or with registration:
 
 ### Result
 
-If the meeting has a "result" then you can record that in a **closed** statement.
+**A result is only used in a "closed" statement.**
+
+So, if the meeting had a "result" then you can record that in a **closed** statement.
 
 ```js
 "result": {
@@ -314,11 +316,7 @@ If the meeting has a "result" then you can record that in a **closed** statement
 }
 ```
 
-### Example Statement
-
-#### Preliminary Notes
-
-##### Authority & context.instructor
+### Authority & context.instructor
 
 The "authority" can be any "agent" (e.g. user, group, system).
 
@@ -358,7 +356,9 @@ To note this you will need to add a **context.observer** agent (person, group or
 	       },
 ```
 
-> NOTE: unsure about the word "observer", but we'll need something for this situation.
+### Example Statement
+
+#### Preliminary Notes
 
 ##### context.category 
 
@@ -390,7 +390,7 @@ To note this you will need to add a **context.observer** agent (person, group or
 
 ##### context.team (optional)
 
-Optionally, statements include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
+Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
 
 (This can include all the attendees or just refer to group by ID or name if there are a lot of attendees?)
 
