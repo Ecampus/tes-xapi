@@ -10,7 +10,7 @@ There are a few [activity types](https://registry.tincanapi.com/#home/activityTy
 
 Here are some **examples**:
 
-activity type         | uri
+activity type         | IRI
 ----------------------|-----
 meeting               | [http://adlnet.gov/expapi/activities/meeting](http://adlnet.gov/expapi/activities/meeting)
 game                  | [http://activitystrea.ms/schema/1.0/game](http://activitystrea.ms/schema/1.0/game)
