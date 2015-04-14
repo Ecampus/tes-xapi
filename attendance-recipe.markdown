@@ -357,7 +357,7 @@ To note this you will need to add a **context.observer** agent (person, group or
 
 ```js
 "context": {
-   "registration": "ec531277-b57b-4c15-8d91-d292c5b2b8f7", // session, instance id, etc 
+   ...
    "contextActivities": {
 	  ...
        "category": [ // this is where the Recipe ID goes
@@ -378,12 +378,6 @@ To note this you will need to add a **context.observer** agent (person, group or
    },
 ...
 ```
-
-##### context.registration
-
-See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4161-registration-property). 
-
-Relates to the instance of the attendance.
 
 ##### context.team (optional)
 
@@ -455,7 +449,6 @@ Here's a complete example of an entire statement. In this case an "opened" state
         }
     },
     "context": {
-        "registration": "ec531277-b57b-4c15-8d91-d292c5b2b8f7", // session id, instance id ... etc
         "contextActivities": {
             "parent": [
                 {
