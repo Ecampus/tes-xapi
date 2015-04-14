@@ -161,14 +161,14 @@ Here's a table of all the statements this recipe covers (see "Discussion" below 
 
 Actor                                     | Verb                                                             | Object                
 ------------------------------------------|------------------------------------------------------------------|------------------------
-Agent who initialised the object          | initialize: [ref](http://adlnet.gov/expapi/verbs/initialized)    | what is being attended 
+Agent who initialised the object          | initialized: [ref](http://adlnet.gov/expapi/verbs/initialized)   | what is being attended 
 Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               
 Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               
 Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above                          
 Attendee who joined the object            | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               
 Attendee who left the object              | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               
 Agent who adjourned the object            | adjourned: IRI REQUIRED                                          | as above               
-Agent who resumed the object              | resume: [ref](http://adlnet.gov/expapi/verbs/resumed)            | as above                           
+Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above                           
 Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above   
 
 The Tincan [registry](https://registry.tincanapi.com/#home/verbs) provides the complete list of xAPI verbs from which these were derived.
@@ -187,11 +187,15 @@ Other aspects beyond the scope of this recipe:
 
 ##### Initialising
 
+**Verb**: [initialized](http://adlnet.gov/expapi/verbs/initialized) 
+
 Optionally, you can state that an instance of, say, meeting has been *created*. An admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
 
 	Ken initialized the meeting
 
 #### Who Will Be Attending?
+
+**Verbs**: [registered](http://adlnet.gov/expapi/verbs/registered), [unregistered](http://id.tincanapi.com/verb/unregistered)
 
 Optionally, **register** and **unregister** people to add them or remove from the list of people who *might* attend.
 
@@ -206,6 +210,8 @@ Note: the list of people who registered as possibly attending is *distinct from*
 
 #### Opening
 
+**Verb**: [opened](http://activitystrea.ms/schema/1.0/open) 
+
 Optionally, **open** the meeting. You do this when you start proceedings. You only open the meeting once.
 
 	Jeff opened the meeting.
@@ -213,6 +219,8 @@ Optionally, **open** the meeting. You do this when you start proceedings. You on
 (If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
 
 #### Who Actually Attended
+
+**Verb**: [joined](http://activitystrea.ms/schema/1.0/join), [left](http://activitystrea.ms/schema/1.0/leave) 
 
 You can record who *actually* attended or didn't attend.
 
@@ -223,6 +231,8 @@ You can record who *actually* attended or didn't attend.
 You can send *multiple* **joined** and **left** statements over time for attendees. This allows you to record comings and goings. This would be analogous to some sort of "sign in" and "sign out" paperwork.
 
 #### Timing Attendance as a Whole
+
+**Verbs**: [adjourned](IRI REQUIRED), [resumed](http://adlnet.gov/expapi/verbs/resumed)  
 
 Optionally, you can **time attendance** for the meeting as a whole.
 
@@ -239,6 +249,8 @@ And continue timing the meeting by **resuming** it:
 You can **adjourn** and **resume** as many times as you wish.
 
 #### Closing
+
+**Verb**: [closed](http://activitystrea.ms/schema/1.0/close) 
 
 Once what is being attended is over, you can **close** it.
 
