@@ -167,7 +167,7 @@ details):
 
 Actor                                     | Verb                                                             | Object                 | required 
 ------------------------------------------|------------------------------------------------------------------|------------------------|--------------------
-Agent who scheduled the object            | initialized: [ref](http://activitystrea.ms/schema/1.0/schedule)  | what is being attended | optional
+Agent who scheduled the object            | scheduled: [ref](http://activitystrea.ms/schema/1.0/schedule)    | what is being attended | optional
 Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               | required
 Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               | optional
 Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above               | optional    
@@ -180,7 +180,7 @@ Agent who closed the object               | closed: [ref](http://activitystrea.m
 Some attendence related experiences and data points are deliberately beyond the scope of this recipe. 
 This includes: 
 
-- ***detailed attendee management* such as invitiations, RSVPs etc; creation of events and registration are in scope.
+- **detailed attendee management** such as invitations, RSVPs etc; creation of events and registration are in scope.
 - **commentary** on what is being attended, e.g. statements using the commented verb.
 - **sharing agenda and minutes** before and after what is to be or was attended.
 
