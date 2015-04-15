@@ -368,44 +368,6 @@ This is where you record the "result" of the attendance. For example, the result
 
 ### Properties that Apply to All Statements
 
-#### authority, context.instructor, context.extensions.\<observer - IRI REQUIRED\> (optional)
-
-The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
-
-In this example *Jeff* is the instructor:
-
-```js
-"context": {
-    ...
-        "instructor": // can be a single agent or a group of agents
-        {
-            "name": "Jeff Sampson",
-            "account": {
-                "homePage": "http://www.example.com",
-                "name": "c531277-b57b-4c15-8d91-d292c5b2b8f7"
-            },
-            "objectType": "Agent"
-        },
-    ...
-```
-
-Often the instructor will *also* be the **authority**.
-
-Sometimes, you may find the instructor is *not* the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
-
-To note this you will need to add a **context.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
-
-```js
-"context": {
-    ...
-    "extensions": { 
-               "observer IRI REQUIRED": {
-                "name": "Ken Admin", 
-                "id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
-               }
-           },
-```
-
 #### object.id (required)
 
 Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
@@ -459,6 +421,44 @@ All statements like this about a particular meeting, tutorial session, or whatev
        ]
    },
 ...
+```
+
+#### authority, context.instructor, context.extensions.\<observer - IRI REQUIRED\> (optional)
+
+The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
+
+In this example *Jeff* is the instructor:
+
+```js
+"context": {
+    ...
+        "instructor": // can be a single agent or a group of agents
+        {
+            "name": "Jeff Sampson",
+            "account": {
+                "homePage": "http://www.example.com",
+                "name": "c531277-b57b-4c15-8d91-d292c5b2b8f7"
+            },
+            "objectType": "Agent"
+        },
+    ...
+```
+
+Often the instructor will *also* be the **authority**.
+
+Sometimes, you may find the instructor is *not* the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
+
+To note this you will need to add a **context.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
+
+```js
+"context": {
+    ...
+    "extensions": { 
+               "observer IRI REQUIRED": {
+                "name": "Ken Admin", 
+                "id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
+               }
+           },
 ```
 
 #### context.team (optional)
