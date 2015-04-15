@@ -1,8 +1,8 @@
 
 
-## Attendance Recipe
+# Attendance Recipe
 
-### What Are You Attending?
+## What Are You Attending?
 
 We're using a "meeting" as the object in the example statements below, but the object could be *anything* people could attend.
 
@@ -46,8 +46,6 @@ Here's an example of a **meeting**:
 If what is being attended is **unspecified**, you can use the "event" activity type. (Note that this is a generic term and discouraged for other cases.)
 
 ## Simple Attendance
-
-> **TODO** based on **NOTE from Andrew**: "Do we need opening and closing in a bare minimum version. It'd be nice for systems that don't do detailed tracking to be able to say in 1 statement that Joe, Bob and Sue had a meeting lasting 1 hour covering X topic." Have to add minutes below.
 
 You might just want to record something like this:
 
@@ -121,55 +119,23 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 }
 ```
 
+Sometimes a simple, "single statement" attendance will do. But in other cases you might want more detail.
+
 ## Detailed Attendance
 
-Sometimes you may want to record things in more detail.
+Here's a table of all the statements this recipe covers (see "Statements" below for details):
 
-### Summary
-
-Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
-
-	Kylie joined the meeting
-	
-or
-
-	Jeff closed the meeting
-
-All statements like this about a particular meeting, tutorial session, or whatever it may be, would all **refer to a common Activity Id**. E.g.
-
-```js
-...
-"object": { // could be any suitable activity type, in this case meeting
-   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting refer to this meeting
-   "definition": {
-       "name": {
-           "en-GB": "example meeting",
-           "en-US": "example meeting"
-       },
-       "description": {
-           "en-GB": "An example meeting that happened on a specific occasion with certain people present.",
-           "en-US": "An example meeting that happened on a specific occasion with certain people present."
-       },
-       "type": "http://adlnet.gov/expapi/activities/meeting"
-   },
-   "objectType": "Activity"
-}
-...
-```
-
-Here's a table of all the statements this recipe covers (see "Discussion" below for details):
-
-Actor                                     | Verb                                                             | Object                
-------------------------------------------|------------------------------------------------------------------|------------------------
-Agent who initialised the object          | initialized: [ref](http://adlnet.gov/expapi/verbs/initialized)   | what is being attended 
-Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               
-Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               
-Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above                          
-Attendee who joined the object            | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               
-Attendee who left the object              | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               
-Agent who adjourned the object            | adjourned: IRI REQUIRED                                          | as above               
-Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above                           
-Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above   
+Actor                                     | Verb                                                             | Object                 | required 
+------------------------------------------|------------------------------------------------------------------|------------------------|--------------------
+Agent who initialised the object          | initialized: [ref](http://adlnet.gov/expapi/verbs/initialized)   | what is being attended | optional
+Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               | required
+Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               | optional
+Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above               | optional    
+Attendee who joined the object            | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               | required
+Attendee who left the object              | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               | optional
+Agent who adjourned the object            | adjourned: IRI REQUIRED                                          | as above               | optional
+Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above               | optional      
+Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above               | required
 
 The Tincan [registry](https://registry.tincanapi.com/#home/verbs) provides the complete list of xAPI verbs from which these were derived.
 
@@ -180,83 +146,9 @@ Other verbs are beyond the scope of this recipe:
 
 Other aspects beyond the scope of this recipe:
 
-- **sharing agenda and minutes** before and after what is to be or was attended;
-- **results** of attendance.
+- **sharing agenda and minutes** before and after what is to be or was attended.
 
 ### Discussion
-
-##### Initialising
-
-**Verb**: [initialized](http://adlnet.gov/expapi/verbs/initialized) 
-
-Optionally, you can state that an instance of, say, meeting has been *created*. An admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
-
-	Ken initialized the meeting
-
-#### Who Will Be Attending?
-
-**Verbs**: [registered](http://adlnet.gov/expapi/verbs/registered), [unregistered](http://id.tincanapi.com/verb/unregistered)
-
-Optionally, **register** and **unregister** people to add them or remove from the list of people who *might* attend.
-
-	Kylie registered for the meeting
-	Tim unregistered from the meeting
-
-You can send **multiple register and unregister statements** for specific attendees **over time**. This allows you to **alter** the list of who will or might be attending over time.
-
-Note: the list of people who registered as possibly attending is *distinct from* the eventual list of people who *actually* attended - see "Who Actually Attended" below.
-
-*If the people who will be attending are not being decided in advance at all, registered and unregistered statements are unnecessary.*
-
-#### Opening
-
-**Verb**: [opened](http://activitystrea.ms/schema/1.0/open) 
-
-Optionally, **open** the meeting. You do this when you start proceedings. You only open the meeting once.
-
-	Jeff opened the meeting.
-
-(If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
-
-#### Who Actually Attended
-
-**Verb**: [joined](http://activitystrea.ms/schema/1.0/join), [left](http://activitystrea.ms/schema/1.0/leave) 
-
-You can record who *actually* attended or didn't attend.
-
-	Kylie joined the meeting
-	Kylie left the meeting
-	Kylie joined the meeting
-
-You can send *multiple* **joined** and **left** statements over time for attendees. This allows you to record comings and goings. This would be analogous to some sort of "sign in" and "sign out" paperwork.
-
-#### Timing Attendance as a Whole
-
-**Verbs**: [adjourned](IRI REQUIRED), [resumed](http://adlnet.gov/expapi/verbs/resumed)  
-
-Optionally, you can **time attendance** for the meeting as a whole.
-
-A timer would start when the meeting is opened.
-
-You can halt timing by adjourning the meeting:
-
-	Jeff adjourned the meeting
-
-And continue timing the meeting by **resuming** it:
-
-	Jeff resumed the meeting
-	
-You can **adjourn** and **resume** as many times as you wish.
-
-#### Closing
-
-**Verb**: [closed](http://activitystrea.ms/schema/1.0/close) 
-
-Once what is being attended is over, you can **close** it.
-
-	Jeff closed the meeting
-
-### Very Few Workflow Assumptions
 
 Not many assumptions about work flow are made, we are just trying to record what actually happened - who was listed as being a possible attendee, who attended and when, who came and went, etc.
 	
@@ -301,11 +193,120 @@ Or with registration:
 	Ken joined the meeting
 	Jeff closed the meeting
 
-### Result
+### Statements
 
-**A result is only used in a "closed" statement.**
+#### Initialized (optional)
 
-So, if the meeting had a "result" then you can record that in a **closed** statement.
+	Ken initialized the meeting
+
+For example, an admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
+
+**Verb**: [http://adlnet.gov/expapi/verbs/initialized](http://adlnet.gov/expapi/verbs/initialized) 
+
+---
+
+#### Registered & Unregistered (optional)
+
+Optionally, you can send **multiple register and unregister statements** for specific attendees **over time**. This allows you to **alter** the list of who *might* be attending over time.
+
+The list of people who registered as *possibly* attending is *distinct from* the eventual list of people who *actually* attended - see "Joined & Left" below.
+
+*If the people who will be attending are not being decided in advance at all, registered and unregistered statements are unnecessary.*
+
+##### Registered (optional)
+
+	Kylie registered for the meeting
+
+You can **register** people -- to add them to the list of people who *might* attend.
+
+**Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
+
+##### Unregistered (optional)
+
+	Tim unregistered from the meeting
+
+You can **unregister** people -- to remove from the list of people who *might* attend.
+
+**Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
+
+---
+
+#### Opened (optional)
+
+	Jeff opened the meeting
+
+Optionally, **open** the meeting. You do this when you start proceedings. You only open the meeting once.
+
+(If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
+
+**Verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
+
+---
+
+#### Joined & Left
+
+	Kylie joined the meeting
+	Kylie left the meeting
+	Kylie joined the meeting
+
+You can send *multiple* **joined** and **left** statements over time for attendees. This allows you to record comings and goings. This would be analogous to some sort of "sign in" and "sign out" paperwork.
+
+##### Joined (required)
+
+	Kylie joined the meeting
+
+State who joined what is being attended.
+
+**Verb**: [http://activitystrea.ms/schema/1.0/join](http://activitystrea.ms/schema/1.0/join)
+
+##### Left (optional)
+
+	Kylie left the meeting
+
+State who left what is being attended.
+
+**Verb**: [http://activitystrea.ms/schema/1.0/leave](http://activitystrea.ms/schema/1.0/leave) 
+
+---
+
+#### Adjourned & Resumed (optional)
+
+	Jeff adjourned the meeting
+	Jeff resumed the meeting
+
+Optionally, you can **time attendance** for the meeting as a whole. A timer would start when the meeting is *opened*. You can sned as many adjourned and resumed statements as you wish. This is analogous to starting a timer and pausing it.
+
+##### Adjourned (optional)
+
+	Jeff adjourned the meeting
+
+Adjourn the meeting, with the the intention of resuming it later.
+
+**Verb**: [adjourned - IRI REQUIRED](IRI REQUIRED)
+
+##### Resumed (optional)
+
+	Jeff adjourned the meeting
+
+Resume what is being attended.
+
+**Verb**: [adjourned - IRI REQUIRED](IRI REQUIRED), [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
+
+---
+
+#### Closed (required)
+
+	Jeff closed the meeting
+
+Once what is being attended is over, you can **close** it.
+
+**Verb**: [http://activitystrea.ms/schema/1.0/close](http://activitystrea.ms/schema/1.0/close) 
+
+##### Closed Statement Properties
+
+**result**
+
+This is where you record the "result" of the attendance. For example, the result of a meeting:
 
 ```js
 "result": {
@@ -316,13 +317,13 @@ So, if the meeting had a "result" then you can record that in a **closed** state
 }
 ```
 
-### Authority & context.instructor
+### Properties that Apply to All Statements
 
-The "authority" can be any "agent" (e.g. user, group, system).
+#### authority, context.instructor, context.extensions.\<observer - IRI REQUIRED\> (optional)
 
-Usually the instructor will be the person (or system) recording attendance.
+The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
 
-In this example *Jeff* is the instructor.
+In this example *Jeff* is the instructor:
 
 ```js
 "context": {
@@ -339,9 +340,9 @@ In this example *Jeff* is the instructor.
 	...
 ```
 
-Often the instructor will *also* be the authority.
+Often the instructor will *also* be the **authority**.
 
-Sometimes, you may find the instructor is not the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
+Sometimes, you may find the instructor is *not* the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
 
 To note this you will need to add a **context.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
 
@@ -356,11 +357,39 @@ To note this you will need to add a **context.observer** agent (person, group or
 	       },
 ```
 
-### Example Statement
+#### object.id (required)
 
-#### Preliminary Notes
+Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
 
-##### context.category 
+	Kylie joined the meeting
+	
+or
+
+	Jeff closed the meeting
+
+All statements like this about a particular meeting, tutorial session, or whatever it may be, would all **refer to a common Activity Id**. E.g.
+
+```js
+...
+"object": { // could be any suitable activity type, in this case meeting
+   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting refer to this meeting
+   "definition": {
+       "name": {
+           "en-GB": "example meeting",
+           "en-US": "example meeting"
+       },
+       "description": {
+           "en-GB": "An example meeting that happened on a specific occasion with certain people present.",
+           "en-US": "An example meeting that happened on a specific occasion with certain people present."
+       },
+       "type": "http://adlnet.gov/expapi/activities/meeting"
+   },
+   "objectType": "Activity"
+}
+...
+```
+
+#### context.category (required)
 
 **All** statements include the **Recipe ID** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
 
@@ -388,7 +417,7 @@ To note this you will need to add a **context.observer** agent (person, group or
 ...
 ```
 
-##### context.team (optional)
+#### context.team (optional)
 
 Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
 
@@ -435,7 +464,7 @@ Optionally, statements can include a Group for the attendees being observed, as 
 	...
 ```
 
-#### Example
+### Example Statement
 
 Here's a complete example of an entire statement. In this case an "opened" statement:
 
