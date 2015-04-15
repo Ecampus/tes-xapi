@@ -10,7 +10,7 @@ This recipe version is 0.0.1.
 ## What Are You Attending?
 
 This recipe defines a number of Activity Types of event that can be used, but the object could be *anything* people could attend. Where a type of event is listed in this recipe, you should use the identifer listed below. If the type
-of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/] for other
+of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/) for other
 Activity types or [sign up](https://registry.tincanapi.com/#signUp) to create a new Activity Type if the 
 event type you need is not listed. 
 
