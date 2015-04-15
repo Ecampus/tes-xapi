@@ -1,12 +1,14 @@
 
 
-# Attendance Recipe
+# Attendance Recipe 0.0.1 
+
 This recipe defines the structure and terms used in Statements intended to record the experience of 
 attending something. For comments or suggestions on this recipe please email support+recipes@tincanapi.com.
 
 This recipe version is 0.0.1.
 
 ## What Are You Attending?
+
 This recipe defines a number of Activity Types of event that can be used, but the object could be *anything* people could attend. Where a type of event is listed in this recipe, you should use the identifer listed below. If the type
 of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/] for other
 Activity types or [sign up](https://registry.tincanapi.com/#signUp) to create a new Activity Type if the 
@@ -49,6 +51,7 @@ Here's an example Activity object representing a **meeting**:
 ```
 
 ## Simple Attendance
+
 This recipe defines two levels of attendance tracking: simple and detailed. Simple Attendance tracking
 is used in cases where the application only wants to record that some people attended an event; Detailed
 Attendance tracking is used to record more detail about the attendance of the event. Recipe adopters
@@ -141,6 +144,7 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
     }
 }
 ```
+
 The statement's timestamp always represents the start of the event and the Result Duration can optionally 
 be used to record the length of the event. Activity Providers can issue multiple statements with the same timestamp
 and activity id to refer to the same event, updating the duration with each statement. In this case, the statement
@@ -148,7 +152,7 @@ with the largest duration value is considered to represent the final duration.  
 'attended' statements with the same Activity Id and different timestamps; to do so would be to record conflicting 
 information about the start time of the event. 
 
-Consdier using Detailed Attendance tracking if this approach to duration and start time tracking is not sufficent.
+Consider using Detailed Attendance tracking if this approach to duration and start time tracking is not sufficent.
 
 The Result Response can optionally be used to record a plain text summary of the end of the event. In the event
 of multiple 'attended' statements about the event, any Result Response fields included in statements that do not 
@@ -158,18 +162,18 @@ have the longest duration are considered early drafts of the final summary which
 
 Detailed Attendance tracking is used to provide more detail.
 
-Here's a table of all the statements this covered by Detailed Attendance tracking (see "Statements" below for 
+Here's a table of all the statements covered by Detailed Attendance tracking (see "Statements" below for 
 details):
 
 Actor                                     | Verb                                                             | Object                 | required 
 ------------------------------------------|------------------------------------------------------------------|------------------------|--------------------
-Agent who scheduled the object          | initialized: [ref](http://activitystrea.ms/schema/1.0/schedule)   | what is being attended | optional
+Agent who scheduled the object            | initialized: [ref](http://activitystrea.ms/schema/1.0/schedule)  | what is being attended | optional
 Agent who opened object                   | opened: [ref](http://activitystrea.ms/schema/1.0/open)           | as above               | required
 Attendee who registered for the object    | registered: [ref](http://adlnet.gov/expapi/verbs/registered)     | as above               | optional
 Attendee who unregistered from the object | unregistered: [ref](http://id.tincanapi.com/verb/unregistered)   | as above               | optional    
 Attendee who joined the object            | joined: [ref](http://activitystrea.ms/schema/1.0/join)           | as above               | required
 Attendee who left the object              | left: [ref](http://activitystrea.ms/schema/1.0/leave)            | as above               | optional
-Agent who adjourned the object            | adjourned: [ref](http://id.tincanapi.com/verb/adjourned)                                          | as above               | optional
+Agent who adjourned the object            | adjourned: [ref](http://id.tincanapi.com/verb/adjourned)         | as above               | optional
 Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above               | optional      
 Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above               | required
 
