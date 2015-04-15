@@ -1,0 +1,14 @@
+{
+    "http://id.tincanapi.com/recipe/attendance/base/0_0_1": {
+        "type":"http://id.tincanapi.com/activitytype/recipe",
+        "name":{"en-US":"Recipe: Attendance Base (v0.0.1)"},
+        "description":{"en-US":"A base recipe for recording attendance at events. (v0.0.1)"}
+    }, 
+    "http://id.tincanapi.com/verb/adjourned": {
+        "name":{"en-US":"adjourned"},
+        "description":{"en-US":"Indicates the actor caused an event (e.g. a meeting) to be paused or put on hold. 
+        It is expected (but not required) that the event will be resumed at a future point in time."}
+    }
+
+}
+
