@@ -55,7 +55,7 @@ Here's an example Activity object representing a **meeting**:
 This recipe defines two levels of attendance tracking: simple and detailed. Simple Attendance tracking
 is used in cases where the application only wants to record that some people attended an event; Detailed
 Attendance tracking is used to record more detail about the attendance of the event. Recipe adopters
-are encourage to implement either just Simple Attendance or both Simple Attendance and Detailed Attendance;
+are encouraged to implement either just Simple Attendance or both Simple Attendance and Detailed Attendance;
 Detailed attendance is not intended to be used on its own. 
 
 Simple Attendance is described in this section; Detailed Attendance is described below. 
@@ -177,8 +177,7 @@ Agent who adjourned the object            | adjourned: [ref](http://id.tincanapi
 Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above               | optional      
 Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above               | required
 
-Some attendence related experiences and data points are deliberately beyond the scope of this recipe. 
-This includes: 
+Some attendance related experiences and data points are deliberately beyond the scope of this recipe:
 
 - **detailed attendee management** such as invitations, RSVPs etc; creation of events and registration are in scope.
 - **commentary** on what is being attended, e.g. statements using the commented verb.
@@ -232,14 +231,14 @@ Or with registration:
     Ken joined the meeting
     Jeff closed the meeting
 
-Events are expected have timestamp properties indictaing a logical series. Events must be opened before they can
+Events are expected have timestamp properties indicating a logical series. Events must be opened before they can
 be adjourned or closed and must be adjourned before they can be resumed. Attendees can join events at any time and
 events can be opened after having been closed; in this case the series of statements indicates that the event
-was intended to have fininished, but then started again for some reason. Some events may adjourn and never resume, 
+was intended to have finished, but then started again for some reason. Some events may adjourn and never resume, 
 indicating that the intention was for the event to continue but it did not. Adjourned events may be closed and 
 closed events may be adjourned to indicate a change in intention regarding resuming the event. 
 
-Whislt missing statements are not recommened (e.g. an event that has no 'opened' statement), statement consumers
+Whilst missing statements are not recommended (e.g. an event that has no 'opened' statement), statement consumers
 should design for this possibility. 
 
 ### Statements
@@ -252,6 +251,11 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 **Verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
 
+##### Extensions
+
+xAPI Property              Identifier                 Description                Required
+
+
 ---
 
 #### Registered & Unregistered (optional)
@@ -259,6 +263,7 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 The registered verb is [defined by ADL](http://adlnet.gov/expapi/verbs/registered) as:
 
 **definition**: register (record in writing; enter into a book of names or events or transactions)
+
 **usage**: Indicates the actor registered for a learning activity
 
 So there's a change in meaning between definition and xAPI usage. The intention is to use registered and unregistered in the "usage" sense. 
@@ -352,7 +357,7 @@ Adjourn the meeting, with the the intention of resuming it later.
 
 Resume what is being attended.
 
-**Verb**: [adjourned - IRI REQUIRED](IRI REQUIRED), [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
+**Verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
 
 ---
 
@@ -415,7 +420,7 @@ All statements like this about a particular meeting, tutorial session, or whatev
 
 #### context.category (required)
 
-**All** statements include the **Recipe ID** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
+**All** statements include the **Recipe Id** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
 
 ```js
 "context": {
