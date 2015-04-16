@@ -279,7 +279,7 @@ It is envisaged that more complex scenarios - invites, RSVPS, etc - will be cove
 
     Kylie registered for the meeting
 
-People can **register** as planning to attend -- to add them to the list of people who *might* attend.
+A person can **register** as planning to attend -- this adds them to the list of people who *might* attend.
 
 **Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
 
@@ -287,7 +287,7 @@ People can **register** as planning to attend -- to add them to the list of peop
 
     Tim unregistered from the meeting
 
-You can **unregister** people -- to remove from the list of people who *might* attend.
+A person can **unregister** as planning to attend -- this removes from the list of people who *might* attend.
 
 **Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
 
