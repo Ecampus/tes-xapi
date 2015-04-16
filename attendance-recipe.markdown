@@ -9,10 +9,7 @@ This recipe version is 0.0.1.
 
 ## What Are You Attending?
 
-This recipe defines a number of Activity Types of event that can be used, but the object could be *anything* people could attend. Where a type of event is listed in this recipe, you should use the identifer listed below. If the type
-of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/) for other
-Activity types or [sign up](https://registry.tincanapi.com/#signUp) to create a new Activity Type if the 
-event type you need is not listed. 
+This recipe defines a number of Activity Types of event that can be used, but the object could be *anything* people could attend. Where a type of event is listed in this recipe, you should use the identifier listed below. If the type of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/) for other Activity types or [sign up](https://registry.tincanapi.com/#signUp) to create a new Activity Type if the event type you need is not listed. 
 
 The Activity Types defined in this recipe are listed below:
 
@@ -52,19 +49,29 @@ Here's an example Activity object representing a **meeting**:
 
 ## Simple Attendance
 
-This recipe defines two levels of attendance tracking: simple and detailed. Simple Attendance tracking
-is used in cases where the application only wants to record that some people attended an event; Detailed
-Attendance tracking is used to record more detail about the attendance of the event. Recipe adopters
-are encouraged to implement either just Simple Attendance or both Simple Attendance and Detailed Attendance;
-Detailed attendance is not intended to be used on its own. 
+This recipe defines two levels of attendance tracking: simple and detailed. Use Simple Attendance tracking when you only wants to record that some people attended an event. Use Detailed Attendance tracking to record more detail about attendance at the event. Recipe adopters are encouraged to implement either Simple Attendance **or** Simple Attendance *and* Detailed Attendance. Detailed attendance is not intended to be used on its own. 
 
-Simple Attendance is described in this section; Detailed Attendance is described below. 
+Simple Attendance is described in this section. Detailed Attendance is described below. 
 
 Simple Attendance is used if you want to record something like this:
 
     Jeff, Kylie and Tim attended the meeting
 
-You can use a single statement using the [attended](http://adlnet.gov/expapi/verbs/attended) verb to do this. E.g.
+You can use a single statement using the [attended](http://adlnet.gov/expapi/verbs/attended) verb to do this.
+
+### Required Properties
+
+- **actor**: a **group** of attendees attending the event;
+- **verb**: [http://adlnet.gov/expapi/verbs/attended](http://adlnet.gov/expapi/verbs/attended)
+- **object**: what is being attended;
+- **timestamp**: always represents the start of the event.
+
+### Optional Properties
+
+- **result.duration**: can optionally be used to record the length of the event. 
+- **result.response**: can optionally be used to record a plain text summary of the end of the event. 
+
+### Example
 
 ```js
 {
@@ -74,7 +81,7 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
             "homePage" : "https://example.com",
             "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f"
        },
-       "member": [ // attendees
+       "member": [
            {
                "name": "Jeff Sampson",
                "account": {
@@ -102,13 +109,13 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
        ],
        "objectType": "Group"
     },
-    "verb": { // attended verb
+    "verb": {
         "id": "http://adlnet.gov/expapi/verbs/attended",
         "display": {
             "en-US": "attended"
         }
     },
-    "object": { // could be any suitable activity type, in this case meeting
+    "object": {
        "id": "http://www.example.com/attendance/34534",
        "definition": {
            "name": {
@@ -145,25 +152,21 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 }
 ```
 
-The statement's timestamp always represents the start of the event and the Result Duration can optionally 
-be used to record the length of the event. Activity Providers can issue multiple statements with the same timestamp
-and activity id to refer to the same event, updating the duration with each statement. In this case, the statement
-with the largest duration value is considered to represent the final duration.  Activity Providers should not issue
-'attended' statements with the same Activity Id and different timestamps; to do so would be to record conflicting 
-information about the start time of the event. 
+### Notes
 
-Consider using Detailed Attendance tracking if this approach to duration and start time tracking is not sufficient.
+Activity Providers can issue **multiple statements** with the same timestamp and Activity Id to refer to the same event, updating the duration with each statement. Then the statement with the largest result.duration is considered to be the final duration and definitive statement about the event.
 
-The Result Response can optionally be used to record a plain text summary of the end of the event. In the event
-of multiple 'attended' statements about the event, any Result Response fields included in statements that do not 
-have the longest duration are considered early drafts of the final summary which can in most cases be ignored. 
+The **statement with the longest result.duration is considered to be the definitive statement**. The result.response of that statement is also considered to be the *final* plain text summary of the event. Other statement's result.response properties are considered to be *drafts*.
+
+Activity Providers should *not* issue 'attended' statements with the same Activity Id and *different* timestamps. The statements would combine to create conflicting data about the start time of the event.
+
+**Consider using Detailed Attendance tracking if this approach to duration and start time tracking is insufficient.**
 
 ## Detailed Attendance
 
 Detailed Attendance tracking is used to provide more detail.
 
-Here's a table of all the statements covered by Detailed Attendance tracking (see "Statements" below for 
-details):
+Here's a table of all the statements covered by Detailed Attendance tracking (see "Statements" below for details):
 
 Actor                                     | Verb                                                             | Object                 | required 
 ------------------------------------------|------------------------------------------------------------------|------------------------|--------------------
@@ -177,18 +180,17 @@ Agent who adjourned the object            | adjourned: [ref](http://id.tincanapi
 Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above               | optional      
 Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above               | required
 
-Some attendance related experiences and data points are deliberately beyond the scope of this recipe:
+Some attendance things are beyond the scope of this recipe:
 
 - **detailed attendee management** such as invitations, RSVPs etc; creation of events and registration are in scope.
 - **commentary** on what is being attended, e.g. statements using the commented verb.
 - **sharing agenda and minutes** before and after what is to be or was attended.
 
-It is envisaged that these will be covered by additional recipes as required. 
+These will be covered by additional recipes as required. 
 
 ### Event Work Flow
 
-Not many assumptions about work flow are made, we are just trying to record what actually happened - who was 
-listed as being a possible attendee, who attended and when, who came and went, etc. 
+Not many assumptions about work flow are made. We are just trying to record what actually happened; who was listed as being a possible attendee, who attended and when, who came and went, etc. 
     
 The bare minimum:
 
@@ -231,15 +233,16 @@ Or with registration:
     Ken joined the meeting
     Jeff closed the meeting
 
-Events are expected to have timestamp properties indicating a logical series. Events must be opened before they can
-be adjourned or closed and must be adjourned before they can be resumed. Attendees can join events at any time and
-events can be opened after having been closed; in this case the series of statements indicates that the event
-was intended to have finished, but then started again for some reason. Some events may adjourn and never resume, 
-indicating that the intention was for the event to continue but it did not. Adjourned events may be closed and 
-closed events may be adjourned to indicate a change in intention regarding resuming the event. 
+Events should have timestamp properties that indicate a logical series.
 
-Whilst missing statements are not recommended (e.g. an event that has no 'opened' statement), statement consumers
-should design for this possibility. 
+- Events must be opened before they can be adjourned or closed;
+- Events must be adjourned before they can be resumed;
+- Attendees can join and leave events at any time;
+- Events can be opened after being closed (the event was closed, but was started again for some reason).
+- Some events might be adjourned and never resume (perhaps the intention was to resume the event but it not resumed for some reason);
+- Adjourned events can be closed and closed events can be adjourned to indicate that the intention is now to resume the event later.
+
+Although missing statements are not recommended (e.g. an event that has no 'opened' statement), statement consumers should design for this possibility. 
 
 ### Statements
 
