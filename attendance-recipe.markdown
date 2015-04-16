@@ -152,7 +152,7 @@ with the largest duration value is considered to represent the final duration.  
 'attended' statements with the same Activity Id and different timestamps; to do so would be to record conflicting 
 information about the start time of the event. 
 
-Consider using Detailed Attendance tracking if this approach to duration and start time tracking is not sufficent.
+Consider using Detailed Attendance tracking if this approach to duration and start time tracking is not sufficient.
 
 The Result Response can optionally be used to record a plain text summary of the end of the event. In the event
 of multiple 'attended' statements about the event, any Result Response fields included in statements that do not 
@@ -636,13 +636,6 @@ Here's a complete example of an entire statement. In this case an "opened" state
     "object": {
         "id": "http://www.example.com/meetings/occurances/34534",
         "definition": {
-            "extensions": { 
-                  // here's where additional info about what is being attended can go, 
-                "room IRI REQUIRED": {
-                    "name": "Kilby", 
-                    "id" : "http://example.com/rooms/342"
-                }
-            },
             "name": {
                 "en-GB": "example meeting",
                 "en-US": "example meeting"
