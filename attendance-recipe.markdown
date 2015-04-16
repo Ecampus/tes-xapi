@@ -231,7 +231,7 @@ Or with registration:
     Ken joined the meeting
     Jeff closed the meeting
 
-Events are expected have timestamp properties indicating a logical series. Events must be opened before they can
+Events are expected to have timestamp properties indicating a logical series. Events must be opened before they can
 be adjourned or closed and must be adjourned before they can be resumed. Attendees can join events at any time and
 events can be opened after having been closed; in this case the series of statements indicates that the event
 was intended to have finished, but then started again for some reason. Some events may adjourn and never resume, 
@@ -250,11 +250,6 @@ should design for this possibility.
 For example, an admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
 
 **Verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
-
-##### Extensions
-
-xAPI Property              Identifier                 Description                Required
-
 
 ---
 
