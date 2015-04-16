@@ -379,9 +379,10 @@ This is where you record the "result" of the attendance. For example, the result
 }
 ```
 
-### Properties that Apply to All Statements
+## Properties that Apply to All Statements
+The properties in this section apply to all statements in both Simple and Detailed attendance tracking. 
 
-#### object.id (required)
+### object.id (required)
 
 Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
 
@@ -391,12 +392,15 @@ or
 
     Jeff closed the meeting
 
-All statements like this about a particular meeting, tutorial session, or whatever it may be, would all **refer to a common Activity Id**. E.g.
+All statements like this about a particular meeting, tutorial session, or whatever it may be, all **refer to a common Activity Id**. This is extremely important as systems reading statements will regard statements using different 
+Activity Ids as distinct events, even if all other data points are identical. 
+
+E.g.
 
 ```js
 ...
-"object": { // could be any suitable activity type, in this case meeting
-   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting refer to this meeting
+"object": {
+   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting use this id
    "definition": {
        "name": {
            "en-GB": "example meeting",
@@ -413,7 +417,7 @@ All statements like this about a particular meeting, tutorial session, or whatev
 ...
 ```
 
-#### context.category (required)
+### context.category (required)
 
 **All** statements include the **Recipe Id** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
 
@@ -432,13 +436,14 @@ All statements like this about a particular meeting, tutorial session, or whatev
             }
         ]
        ]
-   },
+   }
 ...
 ```
 
-#### authority, context.instructor, context.extensions.\<observer - IRI REQUIRED\> (optional)
+### authority, context.instructor, context.extensions.http://id.tincanapi.com/extension/observer (optional)
 
-The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
+The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person 
+(or system) recording attendance.
 
 In this example *Jeff* is the instructor:
 
@@ -457,24 +462,32 @@ In this example *Jeff* is the instructor:
     ...
 ```
 
-Often the instructor will *also* be the **authority**.
+If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for 
+the statement. 
 
-Sometimes, you may find the instructor is *not* the person logged in and recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
+Sometimes the instructor is *not* the person recording attendance. (For example, you might 
+have an instructor or group of instructors running the session and somebody else taking attendance.)
 
-To note this you will need to add a **context.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
+To record this you will need to add a **context.observer** agent (person, group or system). This is the 
+agent *observing* what is being attended and recording when it opened, who joined, who left, when it 
+closed and so on.
 
 ```js
 "context": {
     ...
     "extensions": { 
-               "observer IRI REQUIRED": {
-                "name": "Ken Admin", 
-                "id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
-               }
-           },
+         "http://id.tincanapi.com/extension/observer": {
+            "name": "Ken Admin",
+            "account": {
+                "homePage": "http://www.example.com",
+                "name": "83220327-7608-412e-a4e9-f0f2d6a933ce"
+            },
+            "objectType": "Agent"
+        }
+     }
 ```
 
-#### context.team (optional)
+### context.team (optional)
 
 Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
 
@@ -616,10 +629,14 @@ Here's a complete example of an entire statement. In this case an "opened" state
         // here's where additional data about the activity can go
         // e.g. where oauth is not used, the observer is the person using the app to record attendance 
         // see "Who Or What is Actually Recording Attendance"
-           "observer IRI REQUIRED": {
-            "name": "Ken Admin", 
-            "id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
-           }
+        "http://id.tincanapi.com/extension/observer": {
+            "name": "Ken Admin",
+            "account": {
+                "homePage": "http://www.example.com",
+                "name": "83220327-7608-412e-a4e9-f0f2d6a933ce"
+            },
+            "objectType": "Agent"
+        }
        },
     },
     "timestamp": "2013-05-18T05:32:34.804Z", // ISO 8601 timestamp
