@@ -254,6 +254,8 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 **Verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
 
+**instructor**: the agent that who will be conducting the event. 
+
 ---
 
 #### Registered & Unregistered (optional)
@@ -278,6 +280,8 @@ A person can **register** as planning to attend -- this adds the person to the l
 
 **Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
 
+**instructor**: the agent who will be conducting the event. 
+
 ##### Unregistered (optional)
 
     Tim unregistered from the meeting
@@ -285,6 +289,8 @@ A person can **register** as planning to attend -- this adds the person to the l
 A person can **unregister** as planning to attend -- this removes the person from the list of people who *might* attend.
 
 **Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
+
+**instructor**: the agent who will be conducting the event. 
 
 ---
 
@@ -297,6 +303,8 @@ Optionally, **open** the meeting. You do this when you start proceedings. You on
 (If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
 
 **Verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
+
+**instructor**: the agent opening the event.
 
 ---
 
@@ -316,6 +324,8 @@ State who joined what is being attended.
 
 **Verb**: [http://activitystrea.ms/schema/1.0/join](http://activitystrea.ms/schema/1.0/join)
 
+**instructor**: the agent conducting the event that the actor joined.
+
 ##### Left (optional)
 
     Kylie left the meeting
@@ -323,6 +333,8 @@ State who joined what is being attended.
 State who left what is being attended.
 
 **Verb**: [http://activitystrea.ms/schema/1.0/leave](http://activitystrea.ms/schema/1.0/leave) 
+
+**instructor**: the agent conducting the event that the actor left.
 
 ---
 
@@ -341,6 +353,8 @@ Adjourn the meeting, with the the intention of resuming it later.
 
 **Verb**: [adjourned - IRI REQUIRED](IRI REQUIRED)
 
+**instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
+
 ##### Resumed (optional)
 
     Jeff adjourned the meeting
@@ -348,6 +362,8 @@ Adjourn the meeting, with the the intention of resuming it later.
 Resume what is being attended.
 
 **Verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
+
+**instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
 
 ---
 
@@ -358,6 +374,8 @@ Resume what is being attended.
 Once what is being attended is over, you can **close** it.
 
 **Verb**: [http://activitystrea.ms/schema/1.0/close](http://activitystrea.ms/schema/1.0/close) 
+
+**instructor**: the agent who had been conducting the now closed event. It is usually the same agent as the actor, but not always.
 
 ##### Closed Statement Properties
 
@@ -463,11 +481,11 @@ In this example *Jeff* is the instructor:
     ...
 ```
 
-If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for  the statement. 
+If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for the statement. 
 
 Sometimes the instructor is *not* the person recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
 
-To record this you will need to add a **context.extensions.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
+To record this you will need to add a **context.extensions.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording who registered, when it opened, who joined, who left, when it closed and so on.
 
 ```js
 "context": {
@@ -488,7 +506,7 @@ To record this you will need to add a **context.extensions.observer** agent (per
 
 Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
 
-The **team** property is there as an option for Activity Providers who want to provide a complete list of attendees (or refer to a group) attending (or having registered to attend) the event in *every* statement. It also gives the authority the ability to state: "these are the attendees at this datetime". 
+The **team** property can be used by Activity Providers who want to provide a complete list of attendees (or refer to a group) attending (or having registered to attend) the event in a given statement. It also gives the authority the ability to state: "these are the attendees (or prospective attendees) at this datetime". 
 
 Of course, the statement provider can compute the list at any time, too. So this is entirely optional.
 
@@ -624,9 +642,6 @@ Here's a complete example of an entire statement. In this case an "opened" state
             "objectType": "Group"
         },
        "extensions": { 
-        // here's where additional data about the activity can go
-        // e.g. where oauth is not used, the observer is the person using the app to record attendance 
-        // see "Who Or What is Actually Recording Attendance"
         "http://id.tincanapi.com/extension/observer": {
             "name": "Ken Admin",
             "account": {
