@@ -584,27 +584,13 @@ Here's a complete example of an entire statement. In this case an "opened" state
     },
     "context": {
         "contextActivities": {
-            "parent": [
-                {
-                    "id": "http://www.example.com/someactivity", 
-                    "objectType": "Activity"
-                }
-            ],
-            "category": [
-                {
-                    "id": "IRI REQUIRED of attendance recipe",
-                    "objectType": "Activity",
-                    "definition": {
-                        "name": {
-                            "en": "A recipe used for attendance"
-                        },
-                        "description": {
-                            "en": "A recipe used for attendance"
-                        },
-                        "type": "http://example.com/expapi/profiles/attendance"
-                    }
-                }
-            ]
+            "category": [{
+                "id": "http://id.tincanapi.com/recipe/attendance/base/0_0_1",
+                "definition": {
+                    "type": "http://id.tincanapi.com/activitytype/recipe"
+                },
+                "objectType": "Activity"
+            }]
         },
         "instructor":
         {
