@@ -256,6 +256,10 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 **instructor**: the agent that who will be conducting the event. 
 
+**timestamp**: the datetime when the scheduling happened **not** the datetime when the event is scheduled for.
+
+**result.duration**: none.
+
 ---
 
 #### Registered & Unregistered (optional)
@@ -282,6 +286,10 @@ A person can **register** as planning to attend -- this adds the person to the l
 
 **instructor**: the agent who will be conducting the event. 
 
+**timestamp**: the datetime when the registration happened **not** the datetime of the the event registered for.
+
+**result.duration**: none.
+
 ##### Unregistered (optional)
 
     Tim unregistered from the meeting
@@ -291,6 +299,10 @@ A person can **unregister** as planning to attend -- this removes the person fro
 **Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
 
 **instructor**: the agent who will be conducting the event. 
+
+**timestamp**: the datetime when the unregistration happened **not** the datetime of the event unregistered from.
+
+**result.duration**: none.
 
 ---
 
@@ -302,9 +314,15 @@ Optionally, **open** the meeting. You do this when you start proceedings. You on
 
 (If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
 
+When the event is opened, time starts elapsing for the event.
+
 **Verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
 
 **instructor**: the agent opening the event.
+
+**timestamp**: the datetime when that the event was opened.
+
+**result.duration**: none.
 
 ---
 
@@ -326,6 +344,10 @@ State who joined what is being attended.
 
 **instructor**: the agent conducting the event that the actor joined.
 
+**timestamp**: the datetime when the person joined the event.
+
+**result.duration**: (optional) the time elapsed for the event up to the point the actor joined the event.
+
 ##### Left (optional)
 
     Kylie left the meeting
@@ -336,6 +358,10 @@ State who left what is being attended.
 
 **instructor**: the agent conducting the event that the actor left.
 
+**timestamp**: the datetime when the person left the event.
+
+**result.duration**: (optional) the total time elapsed for the event up to the point the actor left the event.
+
 ---
 
 #### Adjourned & Resumed (optional)
@@ -343,17 +369,23 @@ State who left what is being attended.
     Jeff adjourned the meeting
     Jeff resumed the meeting
 
-Optionally, you can **time attendance** for the meeting as a whole. A timer would start when the meeting is *opened*. You can sned as many adjourned and resumed statements as you wish. This is analogous to starting a timer and pausing it.
+You can send as many adjourned and resumed statements as you wish. This is analogous to starting a timer and pausing it.
+
+When an event is adjourned time stops elapsing for the event. When it is resumed time starts elapsing again.
 
 ##### Adjourned (optional)
 
     Jeff adjourned the meeting
 
-Adjourn the meeting, with the the intention of resuming it later.
+Adjourn the meeting, with the the intention of resuming it later. When an event is adjounred, *adjournment time* starts elapsing.
 
 **Verb**: [http://id.tincanapi.com/verb/adjourned](http://id.tincanapi.com/verb/adjourned)
 
 **instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
+
+**timestamp**: the datetime when that the event was adjourned.
+
+**result.duration**: (optional) the time elapsed for the event up to the point the event was adjourned.
 
 ##### Resumed (optional)
 
@@ -364,6 +396,10 @@ Resume what is being attended.
 **Verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
 
 **instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
+
+**timestamp**: the datetime when that the event was resumed.
+
+**result.duration**: (optional) the adjournment time elapsed between when the event was adjourned and the event resumed.
 
 ---
 
@@ -377,11 +413,11 @@ Once what is being attended is over, you can **close** it.
 
 **instructor**: the agent who had been conducting the now closed event. It is usually the same agent as the actor, but not always.
 
-##### Closed Statement Properties
+**timestamp**: the datetime when that the event was closed.
 
-**result**
+**result**: (optional) how long the event lasted for (taking into accumulated adjournment times).
 
-This is where you record the "result" of the attendance. For example, the result of a meeting:
+This is where you record the final "result" of the attendance, too. For example, the result of a meeting:
 
 ```js
 "result": {
