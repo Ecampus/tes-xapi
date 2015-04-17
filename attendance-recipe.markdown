@@ -134,7 +134,7 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
        "success": true,
        "completion": true,
        "response": "We agreed on some example actions.",
-       "duration": "PT1H0M0S" // the duration of the meeting
+       "duration": "PT1H0M0S"
     },
     "context": {
         "contextActivities": {
@@ -398,8 +398,8 @@ All statements like this about a particular meeting, tutorial session, or whatev
 
 ```js
 ...
-"object": { // could be any suitable activity type, in this case meeting
-   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting refer to this meeting
+"object": {
+   "id": "http://www.example.com/attendance/34534",
    "definition": {
        "name": {
            "en-GB": "example meeting",
@@ -448,7 +448,7 @@ In this example *Jeff* is the instructor:
 ```js
 "context": {
     ...
-        "instructor": // can be a single agent or a group of agents
+        "instructor":
         {
             "name": "Jeff Sampson",
             "account": {
@@ -486,16 +486,16 @@ Optionally, statements can include a Group for the attendees being observed, as 
 ```js
 "context": {
     ...
-       "team": // the attendees
+       "team":
         {
             "name": "Example Group",
             "account" : {
                "homePage" : "https://example.com",
-               "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f" // id of group
+               "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f"
             },
             "member": [ 
               {
-                  "name": "Jeff Sampson", // also the instructor
+                  "name": "Jeff Sampson",
                   "account": {
                       "homePage": "https://www.example.com",
                       "name": "07f2c03a-8d2e-4d85-80c0-fd584a500bde"
@@ -530,17 +530,17 @@ Here's a complete example of an entire statement. In this case an "opened" state
 
 ```js
 {
-    "id": "6690e6c9-3ef0-4ed3-8b37-7f3964730bee", // id of the statement
+    "id": "6690e6c9-3ef0-4ed3-8b37-7f3964730bee",
     "actor": {
-        "name": "Jeff Sampson", // the person starting the "meeting"
+        "name": "Jeff Sampson",
         "account" : {
             "homePage" : "http://example.com",
-            "name" : "3f5fc6e0-8562-46af-b623-83a212a28b5d" // user id at example.com
+            "name" : "3f5fc6e0-8562-46af-b623-83a212a28b5d"
         },
        "objectType": "Agent"
     },
     "verb": {
-        "id": "http://activitystrea.ms/schema/1.0/open", // opened verb
+        "id": "http://activitystrea.ms/schema/1.0/open",
         "display": {
             "en-GB": "opened",
             "en-US": "opened"
@@ -550,12 +550,11 @@ Here's a complete example of an entire statement. In this case an "opened" state
         "contextActivities": {
             "parent": [
                 {
-                    // the "meeting" is part of some wider activity such as a training event 
                     "id": "http://www.example.com/someactivity", 
                     "objectType": "Activity"
                 }
             ],
-            "category": [ // this is where the Recipe ID goes
+            "category": [
                 {
                     "id": "IRI REQUIRED of attendance recipe",
                     "objectType": "Activity",
@@ -571,7 +570,7 @@ Here's a complete example of an entire statement. In this case an "opened" state
                 }
             ]
         },
-        "instructor": // can be a single agent or a group of agents
+        "instructor":
         {
             "name": "Jeff Sampson",
             "account": {
@@ -580,12 +579,12 @@ Here's a complete example of an entire statement. In this case an "opened" state
             },
             "objectType": "Agent"
         },
-        "team": // the attendees
+        "team":
         {
             "name": "Example Group",
             "account" : {
                "homePage" : "https://example.com",
-               "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f" // id of group
+               "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f"
             },
             "member": [ 
               {
@@ -616,20 +615,15 @@ Here's a complete example of an entire statement. In this case an "opened" state
             "objectType": "Group"
         },
        "extensions": { 
-        // here's where additional data about the activity can go
-        // e.g. where oauth is not used, the observer is the person using the app to record attendance 
-        // see "Who Or What is Actually Recording Attendance"
            "observer IRI REQUIRED": {
             "name": "Ken Admin", 
             "id" : "83220327-7608-412e-a4e9-f0f2d6a933ce"
            }
        },
     },
-    "timestamp": "2013-05-18T05:32:34.804Z", // ISO 8601 timestamp
+    "timestamp": "2013-05-18T05:32:34.804Z",
     "authority": {
         "account": {
-                // will end up being the credentials used to send the statement to
-                // the LRS, use OAuth if possible.
             "homePage": "http://cloud.scorm.com/", 
             "name": "anonymous"
         },
