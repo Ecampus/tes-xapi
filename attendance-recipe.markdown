@@ -375,6 +375,7 @@ This is where you record the "result" of the attendance. For example, the result
 ```
 
 ## Properties that Apply to All Statements
+
 The properties in this section apply to all statements in both Simple and Detailed attendance tracking. 
 
 ### object.id (required)
@@ -437,8 +438,13 @@ E.g.
 
 ### authority, context.instructor, context.extensions.http://id.tincanapi.com/extension/observer (optional)
 
-The "authority" can be any "agent" (e.g. user, group, system). Usually the instructor will be the person 
-(or system) recording attendance.
+The authority can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
+
+If an **instructor** is present you can record that fact. If not, just leave the property out.
+
+For example. In some cases a Kylie registers for the event *after* she joins it. "Here, fill your details here", says the instructor to Kylie. The instructor would be present. So you add the instructor property to the registered statement.
+
+If Kylie registered *before* the event -- using an app for example -- then *no* instructor would be present. In cases where no instructor is present you can just leave the instructor property out.
 
 In this example *Jeff* is the instructor:
 
@@ -457,15 +463,11 @@ In this example *Jeff* is the instructor:
     ...
 ```
 
-If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for 
-the statement. 
+If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for  the statement. 
 
-Sometimes the instructor is *not* the person recording attendance. (For example, you might 
-have an instructor or group of instructors running the session and somebody else taking attendance.)
+Sometimes the instructor is *not* the person recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
 
-To record this you will need to add a **context.observer** agent (person, group or system). This is the 
-agent *observing* what is being attended and recording when it opened, who joined, who left, when it 
-closed and so on.
+To record this you will need to add a **context.extensions.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording when it opened, who joined, who left, when it closed and so on.
 
 ```js
 "context": {
@@ -486,7 +488,9 @@ closed and so on.
 
 Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
 
-(This can include all the attendees or just refer to group by ID or name if there are a lot of attendees?)
+The **team** property is there as an option for Activity Providers who want to provide a complete list of attendees (or refer to a group) attending (or having registered to attend) the event in *every* statement. It also gives the authority the ability to state: "these are the attendees at this datetime". 
+
+Of course, the statement provider can compute the list at any time, too. So this is entirely optional.
 
 ```js
 "context": {
