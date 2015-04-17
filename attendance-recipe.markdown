@@ -258,9 +258,13 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 **context.instructor**: the agent that who will be conducting the event. 
 
-**timestamp**: the datetime when the scheduling happened **not** the datetime when the event is scheduled for.
+**timestamp**: the datetime when the scheduling happened **not** the datetime when the event is scheduled for. (See context.extensions below.)
 
 **result.duration**: none.
+
+**context.extensions.\<URI REQUIRED for planned start time\>**: (optional) the planned starting datetime for the event.
+
+**context.extensions.\<URI REQUIRED for planned duration\>**: (optional) the planned duration for the event.
 
 ---
 
