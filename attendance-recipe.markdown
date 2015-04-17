@@ -252,9 +252,11 @@ Although missing statements are not recommended (e.g. an event that has no 'open
 
 For example, an admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
 
+**Actor**: The person scheduling the event (such as an administrator).
+
 **Verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
 
-**instructor**: the agent that who will be conducting the event. 
+**context.instructor**: the agent that who will be conducting the event. 
 
 **timestamp**: the datetime when the scheduling happened **not** the datetime when the event is scheduled for.
 
@@ -282,9 +284,11 @@ More complex scenarios - invites, RSVPS, etc - will be covered by additional rec
 
 A person can **register** as planning to attend -- this adds the person to the list of people who *might* attend.
 
+**Actor**: The person registering *for* the event.
+
 **Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
 
-**instructor**: the agent who will be conducting the event. 
+**context.instructor**: the agent who will be conducting the event. 
 
 **timestamp**: the datetime when the registration happened **not** the datetime of the the event registered for.
 
@@ -296,9 +300,11 @@ A person can **register** as planning to attend -- this adds the person to the l
 
 A person can **unregister** as planning to attend -- this removes the person from the list of people who *might* attend.
 
+**Actor**: The person unregistering *from* the the event.
+
 **Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
 
-**instructor**: the agent who will be conducting the event. 
+**context.instructor**: the agent who will be conducting the event. 
 
 **timestamp**: the datetime when the unregistration happened **not** the datetime of the event unregistered from.
 
@@ -316,9 +322,11 @@ Optionally, **open** the meeting. You do this when you start proceedings. You on
 
 When the event is opened, time starts elapsing for the event.
 
+**Actor**: The person opening the event. Could also the the context.instructor.
+
 **Verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
 
-**instructor**: the agent opening the event.
+**context.instructor**: the agent opening the event.
 
 **timestamp**: the datetime when that the event was opened.
 
@@ -340,9 +348,11 @@ You can send *multiple* **joined** and **left** statements over time for attende
 
 State who joined what is being attended.
 
+**Actor**: the person joining the event.
+
 **Verb**: [http://activitystrea.ms/schema/1.0/join](http://activitystrea.ms/schema/1.0/join)
 
-**instructor**: the agent conducting the event that the actor joined.
+**context.instructor**: the agent conducting the event that the actor joined.
 
 **timestamp**: the datetime when the person joined the event.
 
@@ -354,9 +364,11 @@ State who joined what is being attended.
 
 State who left what is being attended.
 
+**Actor**: The person leaving the event.
+
 **Verb**: [http://activitystrea.ms/schema/1.0/leave](http://activitystrea.ms/schema/1.0/leave) 
 
-**instructor**: the agent conducting the event that the actor left.
+**context.instructor**: the agent conducting the event that the actor left.
 
 **timestamp**: the datetime when the person left the event.
 
@@ -379,9 +391,11 @@ When an event is adjourned time stops elapsing for the event. When it is resumed
 
 Adjourn the meeting, with the the intention of resuming it later. When an event is adjounred, *adjournment time* starts elapsing.
 
+**Actor**: The person adjourning the event. (Often the same person as the context.instructor.)
+
 **Verb**: [http://id.tincanapi.com/verb/adjourned](http://id.tincanapi.com/verb/adjourned)
 
-**instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
+**context.instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
 
 **timestamp**: the datetime when that the event was adjourned.
 
@@ -393,9 +407,11 @@ Adjourn the meeting, with the the intention of resuming it later. When an event 
 
 Resume what is being attended.
 
+**Actor**: the person resuming the event. (Often the same person as the context.instructor.)
+
 **Verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
 
-**instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
+**context.instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
 
 **timestamp**: the datetime when that the event was resumed.
 
@@ -409,9 +425,11 @@ Resume what is being attended.
 
 Once what is being attended is over, you can **close** it.
 
+**Actor**: The person closing the event. (Often the same person as the context.instructor.)
+
 **Verb**: [http://activitystrea.ms/schema/1.0/close](http://activitystrea.ms/schema/1.0/close) 
 
-**instructor**: the agent who had been conducting the now closed event. It is usually the same agent as the actor, but not always.
+**context.instructor**: the agent who was conducting the now closed event. It is usually the same agent as the actor, but not always.
 
 **timestamp**: the datetime when that the event was closed.
 
