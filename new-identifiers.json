@@ -8,6 +8,11 @@
         "name":{"en-US":"adjourned"},
         "description":{"en-US":"Indicates the actor caused an event (e.g. a meeting) to be paused or put on hold. 
         It is expected (but not required) that the event will be resumed at a future point in time."}
+    },
+    "http://id.tincanapi.com/extension/observer": {
+        "name":{"en-US":"observer"},
+        "description":{"en-US":"Contains an Agent or Group object representing an agent or group who observed 
+        the experience"}
     }
 
 }
