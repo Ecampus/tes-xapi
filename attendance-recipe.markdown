@@ -502,55 +502,6 @@ To record this you will need to add a **context.extensions.observer** agent (per
      }
 ```
 
-### context.team (optional)
-
-Optionally, statements can include a Group for the attendees being observed, as the context "**team**" property. (see [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#416-context)).
-
-The **team** property can be used by Activity Providers who want to provide a complete list of attendees (or refer to a group) attending (or having registered to attend) the event in a given statement. It also gives the authority the ability to state: "these are the attendees (or prospective attendees) at this datetime". 
-
-Of course, the statement provider can compute the list at any time, too. So this is entirely optional.
-
-```js
-"context": {
-    ...
-       "team":
-        {
-            "name": "Example Group",
-            "account" : {
-               "homePage" : "https://example.com",
-               "name" : "7ce61a81-c95b-4e07-8355-266b53f29a7f"
-            },
-            "member": [ 
-              {
-                  "name": "Jeff Sampson",
-                  "account": {
-                      "homePage": "https://www.example.com",
-                      "name": "07f2c03a-8d2e-4d85-80c0-fd584a500bde"
-                  },
-                  "objectType": "Agent"
-              },
-              {
-                  "name": "Dee Holroyd",
-                  "account": {
-                      "homePage": "https://www.example.com",
-                      "name": "f4dbfd19-f437-4920-b206-046684d02f23"
-                  },
-                  "objectType": "Agent"
-              },
-              {
-                  "name": "David McKeefe",
-                  "account": {
-                      "homePage": "https://www.example.com",
-                      "name": "a75afa2d-2899-40fc-8a29-8a1d027a2d4c"
-                  },
-                  "objectType": "Agent"
-              },
-            ],
-            "objectType": "Group"
-        },
-    ...
-```
-
 ### Example Statement
 
 Here's a complete example of an entire statement. In this case an "opened" statement:
