@@ -351,7 +351,7 @@ Optionally, you can **time attendance** for the meeting as a whole. A timer woul
 
 Adjourn the meeting, with the the intention of resuming it later.
 
-**Verb**: [adjourned - IRI REQUIRED](IRI REQUIRED)
+**Verb**: [http://id.tincanapi.com/verb/adjourned](http://id.tincanapi.com/verb/adjourned)
 
 **instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
 
