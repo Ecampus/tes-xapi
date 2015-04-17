@@ -258,17 +258,9 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 #### Registered & Unregistered (optional)
 
-The registered verb is [defined by ADL](http://adlnet.gov/expapi/verbs/registered) as:
+The actor property of the Registered and Unregistered statements is the *person who registered for or unregistered from the event*. It's analogous to a person (the actor) filling his or her own name on a form to register on unregister for a meeting, conference or whatever it may be. In this case Kylie (the actor) is registering to attend the meeting:
 
-**definition**: register (record in writing; enter into a book of names or events or transactions)
-
-**usage**: Indicates the actor registered for a learning activity
-
-So there's a change in meaning between definition and xAPI usage. The intention is to use registered and unregistered in the "usage" sense. 
-
-So the notion is that the actor property of the Registered and Unregistered statements is the *person who registered for or unregistered from the event*. It's analogous to a person (the actor) filling his or her own name on a form to register on unregister for a meeting, conference or whatever it may be. In this case Kylie (the actor) is registering to attend the meeting:
-
-    Kylie Attendee registered to attend the meeting.
+    Kylie Attendee registered for the meeting.
 
 Optionally, you can send **multiple register and unregister statements** for specific attendees **over time**. This allows you to **alter** the list of who *might* be attending over time.
 
@@ -276,13 +268,13 @@ The list of people who registered as *possibly* attending is *distinct from* the
 
 *If the people who will be attending are not being decided in advance, registered and unregistered statements are unnecessary.*
 
-It is envisaged that more complex scenarios - invites, RSVPS, etc - will be covered by additional recipes as required.
+More complex scenarios - invites, RSVPS, etc - will be covered by additional recipes as required.
 
 ##### Registered (optional)
 
     Kylie registered for the meeting
 
-A person can **register** as planning to attend -- this adds them to the list of people who *might* attend.
+A person can **register** as planning to attend -- this adds the person to the list of people who *might* attend.
 
 **Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
 
@@ -290,7 +282,7 @@ A person can **register** as planning to attend -- this adds them to the list of
 
     Tim unregistered from the meeting
 
-A person can **unregister** as planning to attend -- this removes from the list of people who *might* attend.
+A person can **unregister** as planning to attend -- this removes the person from the list of people who *might* attend.
 
 **Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
 
