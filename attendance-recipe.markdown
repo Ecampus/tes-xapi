@@ -23,9 +23,7 @@ conference session    | [http://id.tincanapi.com/activitytype/conference-session
 tutor session         | [http://id.tincanapi.com/activitytype/tutor-session](http://id.tincanapi.com/activitytype/tutor-session)
 event                 | [http://activitystrea.ms/schema/1.0/event](http://activitystrea.ms/schema/1.0/event)
 
-The "event" Activity Type should only be used when the type of event is **unspecified**. For example a mobile 
-application might ask learners to select the event type from a drop down of options; 
-```http://activitystrea.ms/schema/1.0/event``` could be used to represent an 'other' option in this dropdown. 
+The "event" Activity Type should only be used when the type of event is **unspecified**. For example a mobile application might ask learners to select the event type from a drop down of options; ```http://activitystrea.ms/schema/1.0/event``` could be used to represent an 'other' option in this dropdown. 
 
 Here's an example Activity object representing a **meeting**:
 
@@ -49,7 +47,7 @@ Here's an example Activity object representing a **meeting**:
 
 ## Simple Attendance
 
-This recipe defines two levels of attendance tracking: simple and detailed. Use Simple Attendance tracking when you only wants to record that some people attended an event. Use Detailed Attendance tracking to record more detail about attendance at the event. Recipe adopters are encouraged to implement either Simple Attendance **or** Simple Attendance *and* Detailed Attendance. Detailed attendance is not intended to be used on its own. 
+This recipe defines two levels of attendance tracking: simple and detailed. Use Simple Attendance tracking when you only want to record that some people attended an event. Use Detailed Attendance tracking to record more detail about attendance at the event. Recipe adopters are encouraged to implement either Simple Attendance **or** Simple Attendance *and* Detailed Attendance. Detailed attendance is not intended to be used on its own. 
 
 Simple Attendance is described in this section. Detailed Attendance is described below. 
 
@@ -239,7 +237,7 @@ Events should have timestamp properties that indicate a logical series.
 - Events must be adjourned before they can be resumed;
 - Attendees can join and leave events at any time;
 - Events can be opened after being closed (the event was closed, but was started again for some reason).
-- Some events might be adjourned and never resume (perhaps the intention was to resume the event but it not resumed for some reason);
+- Some events might be adjourned and never resume (perhaps the intention was to resume the event but it is not resumed for some reason);
 - Adjourned events can be closed and closed events can be adjourned to indicate that the intention is now to resume the event later.
 
 Although missing statements are not recommended (e.g. an event that has no 'opened' statement), statement consumers should design for this possibility. 
@@ -385,7 +383,7 @@ State who left what is being attended.
     Jeff adjourned the meeting
     Jeff resumed the meeting
 
-You can send as many adjourned and resumed statements as you wish. This is analogous to starting a timer and pausing it.
+You can send as many adjourned and resumed statements as you wish.
 
 When an event is adjourned time stops elapsing for the event. When it is resumed time starts elapsing again.
 
@@ -393,7 +391,7 @@ When an event is adjourned time stops elapsing for the event. When it is resumed
 
     Jeff adjourned the meeting
 
-Adjourn the meeting, with the the intention of resuming it later. When an event is adjounred, *adjournment time* starts elapsing.
+Adjourn the meeting, with the the intention of resuming it later. When an event is adjourned, *adjournment time* starts elapsing.
 
 **Actor**: The person adjourning the event. (Often the same person as the context.instructor.)
 
