@@ -13,7 +13,14 @@
         "name":{"en-US":"observer"},
         "description":{"en-US":"Contains an Agent or Group object representing an agent or group who observed 
         the experience"}
+    },
+    "http://id.tincanapi.com/extension/planned-start-time": {
+        "name":{"en-US":"planned start time"},
+        "description":{"en-US":"ISO 8601 timestamp representing the planned start time of a scheduled or planned event."}
+    },
+    "http://id.tincanapi.com/extension/planned-duration": {
+        "name":{"en-US":"planned duration"},
+        "description":{"en-US":"ISO 8601 duration representing the planned duration of a scheduled or planned event."}
     }
-
 }
 

@@ -262,9 +262,9 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 **result.duration**: none.
 
-**context.extensions.\<URI REQUIRED for planned start time\>**: (optional) the planned starting datetime for the event.
+**context.extensions.http://id.tincanapi.com/extension/planned-start-time**: (optional) the planned starting datetime for the event.
 
-**context.extensions.\<URI REQUIRED for planned duration\>**: (optional) the planned duration for the event.
+**context.extensions.http://id.tincanapi.com/extension/planned-duration**: (optional) the planned duration for the event.
 
 ---
 
