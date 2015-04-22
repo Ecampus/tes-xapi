@@ -146,7 +146,8 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
                 }
             ]
         }
-    }
+    },
+    "timestamp": "2013-05-18T05:32:34.804Z"
 }
 ```
 
