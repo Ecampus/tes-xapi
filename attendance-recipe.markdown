@@ -165,6 +165,8 @@ Activity Providers should *not* issue 'attended' statements with the same Activi
 
 Detailed Attendance tracking is used to provide more detail.
 
+**Note**: You will need to implement Simple Attendance (above) as well. This is to ensure you're interoperable with systems that only support Simple Attendance.
+
 Here's a table of all the statements covered by Detailed Attendance tracking (see "Statements" below for details):
 
 Actor                                     | Verb                                                             | Object                 | required 
