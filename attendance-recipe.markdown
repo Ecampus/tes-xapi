@@ -151,15 +151,15 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 }
 ```
 
-### Notes
+### One Definitive Simple Attendance Statement
 
-With Simple Attendance, what keeps it "simple" is that there's *one* definitive statement about the attendance with one start time and one set of attendees. So there is only ever *one* valid Simple Attendance statement -- all the others should be voided.
+With Simple Attendance, there is **one definitive Simple Attendance statement with a given Activity Id.** So there is one definitive timestamp (start time), one definitive actor (a set of attendees), one definitive result.duration, and so on. *All other Simple Attendance statements with a given Activity Id should be voided*.
 
-For example, it may be the case that Bob attended the meeting at 10 am and Sue attended the same meeting at 11 am. They just arrived at different times. That case is handled by the join and left statements in **Detailed Attendance** (below). Trying to deal with eventualities like that in Simple Attendance is *out of scope*.
-
-Instead: If the attendees change, just void the previous Simple Attendance statement and reissue it. Do the same if the **timestamp** changes, if the **result.duration**, changes, etc.
+For example. If the timestamp changes (perhaps a user corrects the start time using a UI), **void the previous Simple Attendance statement and reissue it with the correct data**. If the actor (members of the attendees group) changes, void the previous Simple Attendance statement and reissue it with the correct data. The same approach applies if, for example, result.duration changes, if result.response is updated, and so on.
 
 **Consider using Detailed Attendance tracking if this approach is insufficient.**
+
+For example, it may be the case that Bob attended the meeting at 10 am and Sue attended the same meeting at 11 am. Trying to record details like that in Simple Attendance is *out of scope*. That case is handled by the join and left statements in Detailed Attendance below.
 
 ## Detailed Attendance
 
