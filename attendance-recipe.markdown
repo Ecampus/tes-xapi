@@ -159,7 +159,7 @@ For example. If the timestamp changes (perhaps a user corrects the start time us
 
 **Consider using Detailed Attendance tracking if this approach is insufficient.**
 
-For example, it may be the case that Bob attended the meeting at 10 am and Sue attended the same meeting at 11 am. Trying to record details like that in Simple Attendance is *out of scope*. That case is handled by the join and left statements in Detailed Attendance below.
+For example, it may be the case that Bob attended the meeting at 10 am and Sue attended the same meeting at 11 am. Trying to record details like that in Simple Attendance is *out of scope*. That case is handled by the joined and left statements in Detailed Attendance below.
 
 ## Detailed Attendance
 
