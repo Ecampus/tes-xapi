@@ -153,13 +153,13 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 
 ### Notes
 
-Activity Providers can issue **multiple statements** with the same timestamp and Activity Id to refer to the same event, updating the duration with each statement. Then the statement with the largest result.duration is considered to be the final duration and definitive statement about the event.
+With Simple Attendance, what keeps it "simple" is that there's *one* definitive statement about the attendance with one start time and one set of attendees. So there is only ever *one* valid Simple Attendance statement -- all the others should be voided.
 
-The **statement with the longest result.duration is considered to be the definitive statement**. The result.response of that statement is also considered to be the *final* plain text summary of the event. Other statement's result.response properties are considered to be *drafts*.
+For example, it may be the case that Bob attended the meeting at 10 am and Sue attended the same meeting at 11 am. They just arrived at different times. That case is handled by the join and left statements in **Detailed Attendance** (below). Trying to deal with eventualities like that in Simple Attendance is *out of scope*.
 
-Activity Providers should *not* issue 'attended' statements with the same Activity Id and *different* timestamps. The statements would combine to create conflicting data about the start time of the event.
+Instead: If the attendees change, just void the previous Simple Attendance statement and reissue it. Do the same if the **timestamp** changes, if the **result.duration**, changes, etc.
 
-**Consider using Detailed Attendance tracking if this approach to duration and start time tracking is insufficient.**
+**Consider using Detailed Attendance tracking if this approach is insufficient.**
 
 ## Detailed Attendance
 
