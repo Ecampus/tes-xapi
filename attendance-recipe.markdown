@@ -151,11 +151,9 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 }
 ```
 
-### One Definitive Simple Attendance Statement
+### Notes
 
-With Simple Attendance, there is **one definitive Simple Attendance statement with a given Activity Id.** So there is one definitive timestamp (start time), one definitive actor (a set of attendees), one definitive result.duration, and so on. *All other Simple Attendance statements with a given Activity Id should be voided*.
-
-For example. If the timestamp changes (perhaps a user corrects the start time using a UI), **void the previous Simple Attendance statement and reissue it with the correct data**. If the actor (members of the attendees group) changes, void the previous Simple Attendance statement and reissue it with the correct data. The same approach applies if, for example, result.duration changes, if result.response is updated, and so on.
+Simple Attendance is simply a statement of "these people or this person attended this event at this time". The statement doesn't purport to provide information about definitive event start times, who came and went, and so on.
 
 **Consider using Detailed Attendance tracking if this approach is insufficient.**
 
