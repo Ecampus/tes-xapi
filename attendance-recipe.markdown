@@ -62,7 +62,7 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
 - **actor**: a **group** of attendees attending the event;
 - **verb**: [http://adlnet.gov/expapi/verbs/attended](http://adlnet.gov/expapi/verbs/attended)
 - **object**: what is being attended;
-- **timestamp**: always represents the start of the event.
+- **timestamp**: represents when the actor attended the object.
 
 ### Optional Properties
 
