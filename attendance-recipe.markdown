@@ -90,9 +90,9 @@ E.g.
 
 **All** statements include the **Recipe Id** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
 
-For Simple Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/simple```. 
+For Simple Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1#simple```. 
 
-For Detailed Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/detailed```. 
+For Detailed Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1#detailed```. 
 
 For example:
 
@@ -103,7 +103,7 @@ For example:
       ...
         "category": [
             {
-                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/simple",
+                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1#simple",
                 "definition": {
                     "type": "http://id.tincanapi.com/activitytype/recipe"
                 },
