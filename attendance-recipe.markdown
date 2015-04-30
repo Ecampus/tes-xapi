@@ -138,7 +138,7 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
         "contextActivities": {
             "category": [
                 {
-                    "id": "http://id.tincanapi.com/recipe/attendance/base/0_0_1",
+                    "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1",
                     "definition": {
                         "type": "http://id.tincanapi.com/activitytype/recipe"
                     },
@@ -499,7 +499,7 @@ E.g.
       ...
         "category": [
             {
-                "id": "http://id.tincanapi.com/recipe/attendance/base/0_0_1",
+                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1",
                 "definition": {
                     "type": "http://id.tincanapi.com/activitytype/recipe"
                 },
@@ -584,7 +584,7 @@ Here's a complete example of an entire statement. In this case an "opened" state
     "context": {
         "contextActivities": {
             "category": [{
-                "id": "http://id.tincanapi.com/recipe/attendance/base/0_0_1",
+                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1",
                 "definition": {
                     "type": "http://id.tincanapi.com/activitytype/recipe"
                 },

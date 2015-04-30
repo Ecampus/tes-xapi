@@ -1,17 +1,17 @@
 {
-    "http://id.tincanapi.com/recipe/attendance/base/0_0_1": {
+    "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1": {
         "type":"http://id.tincanapi.com/activitytype/recipe",
         "name":{"en-US":"Recipe: Attendance Base (v0.0.1)"},
         "description":{"en-US":"A base recipe for recording attendance at events. (v0.0.1)"}
-    }, 
+    },
     "http://id.tincanapi.com/verb/adjourned": {
         "name":{"en-US":"adjourned"},
-        "description":{"en-US":"Indicates the actor caused an event (e.g. a meeting) to be paused or put on hold. 
+        "description":{"en-US":"Indicates the actor caused an event (e.g. a meeting) to be paused or put on hold.
         It is expected (but not required) that the event will be resumed at a future point in time."}
     },
     "http://id.tincanapi.com/extension/observer": {
         "name":{"en-US":"observer"},
-        "description":{"en-US":"Contains an Agent or Group object representing an agent or group who observed 
+        "description":{"en-US":"Contains an Agent or Group object representing an agent or group who observed
         the experience"}
     },
     "http://id.tincanapi.com/extension/planned-start-time": {
@@ -23,4 +23,3 @@
         "description":{"en-US":"ISO 8601 duration representing the planned duration of a scheduled or planned event."}
     }
 }
-
