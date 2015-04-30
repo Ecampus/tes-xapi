@@ -7,6 +7,8 @@ attending something. For comments or suggestions on this recipe please email sup
 
 This recipe version is 0.0.1.
 
+This recipe defines two levels of attendance tracking: simple and detailed. Use Simple Attendance tracking when you only want to record that some people attended an event. Use Detailed Attendance tracking to record more detail about attendance at the event. Recipe adopters are encouraged to implement either Simple Attendance **or** Simple Attendance *and* Detailed Attendance. Detailed attendance is not intended to be used on its own. 
+
 ## What Are You Attending?
 
 This recipe defines a number of Activity Types of event that can be used, but the object could be *anything* people could attend. Where a type of event is listed in this recipe, you should use the identifier listed below. If the type of event is not listed in the table below, please refer to [The Registry](https://registry.tincanapi.com/) for other Activity types or [sign up](https://registry.tincanapi.com/#signUp) to create a new Activity Type if the event type you need is not listed. 
@@ -45,11 +47,123 @@ Here's an example Activity object representing a **meeting**:
 }
 ```
 
+## Properties that Apply to All Statements
+
+The properties in this section apply to all statements in both Simple and Detailed attendance tracking. 
+
+### object.id (required)
+
+Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
+
+    Kylie joined the meeting
+    
+or
+
+    Jeff closed the meeting
+
+All statements like this about a particular meeting, tutorial session, or whatever it may be, all **refer to a common Activity Id**. This is extremely important as systems reading statements will regard statements using different 
+Activity Ids as distinct events, even if all other data points are identical. 
+
+E.g.
+
+```js
+...
+"object": {
+   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting use this id
+   "definition": {
+       "name": {
+           "en-GB": "example meeting",
+           "en-US": "example meeting"
+       },
+       "description": {
+           "en-GB": "An example meeting that happened on a specific occasion with certain people present.",
+           "en-US": "An example meeting that happened on a specific occasion with certain people present."
+       },
+       "type": "http://adlnet.gov/expapi/activities/meeting"
+   },
+   "objectType": "Activity"
+}
+...
+```
+
+### context.category (required)
+
+**All** statements include the **Recipe Id** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
+
+For Simple Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/simple```. 
+
+For Detailed Attendance the Recipe Id is ```http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/detailed```. 
+
+For example:
+
+```js
+"context": {
+   ...
+   "contextActivities": {
+      ...
+        "category": [
+            {
+                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1/simple",
+                "definition": {
+                    "type": "http://id.tincanapi.com/activitytype/recipe"
+                },
+                "objectType": "Activity"
+            }
+        ]
+       ]
+   }
+...
+```
+
+### authority, context.instructor, context.extensions.http://id.tincanapi.com/extension/observer (optional)
+
+The authority can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
+
+If an **instructor** is present you can record that fact. If not, just leave the property out.
+
+For example. In some cases a Kylie registers for the event *after* she joins it. "Here, fill your details here", says the instructor to Kylie. The instructor would be present. So you add the instructor property to the registered statement.
+
+If Kylie registered *before* the event -- using an app for example -- then *no* instructor would be present. In cases where no instructor is present you can just leave the instructor property out.
+
+In this example *Jeff* is the instructor:
+
+```js
+"context": {
+    ...
+        "instructor":
+        {
+            "name": "Jeff Sampson",
+            "account": {
+                "homePage": "http://www.example.com",
+                "name": "c531277-b57b-4c15-8d91-d292c5b2b8f7"
+            },
+            "objectType": "Agent"
+        },
+    ...
+```
+
+If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for the statement. 
+
+Sometimes the instructor is *not* the person recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
+
+To record this you will need to add a **context.extensions.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording who registered, when it opened, who joined, who left, when it closed and so on.
+
+```js
+"context": {
+    ...
+    "extensions": { 
+         "http://id.tincanapi.com/extension/observer": {
+            "name": "Ken Admin",
+            "account": {
+                "homePage": "http://www.example.com",
+                "name": "83220327-7608-412e-a4e9-f0f2d6a933ce"
+            },
+            "objectType": "Agent"
+        }
+     }
+```
+
 ## Simple Attendance
-
-This recipe defines two levels of attendance tracking: simple and detailed. Use Simple Attendance tracking when you only want to record that some people attended an event. Use Detailed Attendance tracking to record more detail about attendance at the event. Recipe adopters are encouraged to implement either Simple Attendance **or** Simple Attendance *and* Detailed Attendance. Detailed attendance is not intended to be used on its own. 
-
-Simple Attendance is described in this section. Detailed Attendance is described below. 
 
 Simple Attendance is used if you want to record something like this:
 
@@ -129,8 +243,6 @@ You can use a single statement using the [attended](http://adlnet.gov/expapi/ver
        "objectType": "Activity"
     },
     "result": {
-       "success": true,
-       "completion": true,
        "response": "We agreed on some example actions.",
        "duration": "PT1H0M0S"
     },
@@ -161,7 +273,7 @@ For example, it may be the case that Bob attended the meeting at 10 am and Sue a
 
 ## Detailed Attendance
 
-Detailed Attendance tracking is used to provide more detail.
+Detailed Attendance tracking is used to provide more detail about the start and end of the event and the comings and goings of attendees. 
 
 **Note**: You will need to implement Simple Attendance (above) as well. This is to ensure you're interoperable with systems that only support Simple Attendance.
 
@@ -179,13 +291,26 @@ Agent who adjourned the object            | adjourned: [ref](http://id.tincanapi
 Agent who resumed the object              | resumed: [ref](http://adlnet.gov/expapi/verbs/resumed)           | as above               | optional      
 Agent who closed the object               | closed: [ref](http://activitystrea.ms/schema/1.0/close)          | as above               | required
 
-Some attendance things are beyond the scope of this recipe:
+Some events relating to attendance are beyond the scope of this recipe:
 
-- **detailed attendee management** such as invitations, RSVPs etc; creation of events and registration are in scope.
+- **detailed attendee management** such as invitations, RSVPs etc; creation of events and registration.
 - **commentary** on what is being attended, e.g. statements using the commented verb.
 - **sharing agenda and minutes** before and after what is to be or was attended.
 
 These will be covered by additional recipes as required. 
+
+### Elapsed Time
+Thie recipe has a concept of **Elapsed Time** which is the time during which an event is open. Elaspsed time does not accumulate whilst an event is adjourned. 
+
+For example, consider the following statements on a given day:
+
+* 2pm Meeting opened
+* 3pm Meeting adjourned
+* 3:30pm Meeting resumed
+* 4pm Meeting closed
+
+In this case the **Elapsed Time** recorded in the 'closed' statement would be 1.5 hours despite it occuring 2 hours after the event started. This is because the 
+30 minutes between 3:30pm and 4pm does not count towards the **Elapsed Time**.
 
 ### Event Work Flow
 
@@ -321,7 +446,7 @@ A person can **unregister** as planning to attend -- this removes the person fro
 
 Optionally, **open** the meeting. You do this when you start proceedings. You only open the meeting once.
 
-(If more than one opened statement is received, the most recent one is considered to be be the definitive one.)
+(If more than one opened statement is received, the most recent one is considered to be the definitive one.)
 
 When the event is opened, time starts elapsing for the event.
 
@@ -331,7 +456,7 @@ When the event is opened, time starts elapsing for the event.
 
 **context.instructor**: the agent opening the event.
 
-**timestamp**: the datetime when that the event was opened.
+**timestamp**: the datetime when the event was opened.
 
 **result.duration**: none.
 
@@ -400,7 +525,7 @@ Adjourn the meeting, with the the intention of resuming it later. When an event 
 
 **context.instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
 
-**timestamp**: the datetime when that the event was adjourned.
+**timestamp**: the datetime when the event was adjourned.
 
 **result.duration**: (optional) the time elapsed for the event up to the point the event was adjourned.
 
@@ -416,7 +541,7 @@ Resume what is being attended.
 
 **context.instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
 
-**timestamp**: the datetime when that the event was resumed.
+**timestamp**: the datetime when the event was resumed.
 
 **result.duration**: (optional) the adjournment time elapsed between when the event was adjourned and the event resumed.
 
@@ -434,11 +559,17 @@ Once what is being attended is over, you can **close** it.
 
 **context.instructor**: the agent who was conducting the now closed event. It is usually the same agent as the actor, but not always.
 
-**timestamp**: the datetime when that the event was closed.
+**timestamp**: the datetime when the event was closed.
 
-**result**: (optional) how long the event lasted for (taking into accumulated adjournment times).
+**result.duration**: (optional) how much time has elasped during the event (not including periods when the event was adjourned).
 
-This is where you record the final "result" of the attendance, too. For example, the result of a meeting:
+**result.response**: (optional) a short summary of the event. The content of this summary is not defined by this recipe. 
+
+**result.success**: (optional) whether or not the event was considered by the person closing the event to have been a success. 
+
+**result.completion**: (optional) if included, this should be 'true'.
+
+For example, the result of a meeting might be:
 
 ```js
 "result": {
@@ -447,116 +578,6 @@ This is where you record the final "result" of the attendance, too. For example,
    "response": "We agreed on some example actions.",
    "duration": "PT1H0M0S"
 }
-```
-
-## Properties that Apply to All Statements
-
-The properties in this section apply to all statements in both Simple and Detailed attendance tracking. 
-
-### object.id (required)
-
-Attendance at a particular meeting, tutorial session, or whatever it may be, would involve a series of statements related to that meeting, tutorial session or whatever it may be. For example, a statement might say:
-
-    Kylie joined the meeting
-    
-or
-
-    Jeff closed the meeting
-
-All statements like this about a particular meeting, tutorial session, or whatever it may be, all **refer to a common Activity Id**. This is extremely important as systems reading statements will regard statements using different 
-Activity Ids as distinct events, even if all other data points are identical. 
-
-E.g.
-
-```js
-...
-"object": {
-   "id": "http://www.example.com/attendance/34534", // all statements about this particular meeting use this id
-   "definition": {
-       "name": {
-           "en-GB": "example meeting",
-           "en-US": "example meeting"
-       },
-       "description": {
-           "en-GB": "An example meeting that happened on a specific occasion with certain people present.",
-           "en-US": "An example meeting that happened on a specific occasion with certain people present."
-       },
-       "type": "http://adlnet.gov/expapi/activities/meeting"
-   },
-   "objectType": "Activity"
-}
-...
-```
-
-### context.category (required)
-
-**All** statements include the **Recipe Id** in the "category" context activity list. (See [spec](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI.md#4162-contextactivities-property)) and [here](http://tincanapi.com/recipeshow-it-works/) and [here](https://registry.tincanapi.com/#uri/activityType/289).
-
-```js
-"context": {
-   ...
-   "contextActivities": {
-      ...
-        "category": [
-            {
-                "id": "http://xapi.trainingevidencesystems.com/recipes/attendance/0_0_1",
-                "definition": {
-                    "type": "http://id.tincanapi.com/activitytype/recipe"
-                },
-                "objectType": "Activity"
-            }
-        ]
-       ]
-   }
-...
-```
-
-### authority, context.instructor, context.extensions.http://id.tincanapi.com/extension/observer (optional)
-
-The authority can be any "agent" (e.g. user, group, system). Usually the instructor will be the person (or system) recording attendance.
-
-If an **instructor** is present you can record that fact. If not, just leave the property out.
-
-For example. In some cases a Kylie registers for the event *after* she joins it. "Here, fill your details here", says the instructor to Kylie. The instructor would be present. So you add the instructor property to the registered statement.
-
-If Kylie registered *before* the event -- using an app for example -- then *no* instructor would be present. In cases where no instructor is present you can just leave the instructor property out.
-
-In this example *Jeff* is the instructor:
-
-```js
-"context": {
-    ...
-        "instructor":
-        {
-            "name": "Jeff Sampson",
-            "account": {
-                "homePage": "http://www.example.com",
-                "name": "c531277-b57b-4c15-8d91-d292c5b2b8f7"
-            },
-            "objectType": "Agent"
-        },
-    ...
-```
-
-If the instructor is the person recording the attendance, the instructor may *also* be the **authority** for the statement. 
-
-Sometimes the instructor is *not* the person recording attendance. (For example, you might have an instructor or group of instructors running the session and somebody else taking attendance.)
-
-To record this you will need to add a **context.extensions.observer** agent (person, group or system). This is the agent *observing* what is being attended and recording who registered, when it opened, who joined, who left, when it closed and so on.
-
-```js
-"context": {
-    ...
-    "extensions": { 
-         "http://id.tincanapi.com/extension/observer": {
-            "name": "Ken Admin",
-            "account": {
-                "homePage": "http://www.example.com",
-                "name": "83220327-7608-412e-a4e9-f0f2d6a933ce"
-            },
-            "objectType": "Agent"
-        }
-     }
 ```
 
 ### Example Statement

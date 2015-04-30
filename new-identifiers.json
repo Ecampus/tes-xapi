@@ -6,8 +6,9 @@
     },
     "http://id.tincanapi.com/verb/adjourned": {
         "name":{"en-US":"adjourned"},
-        "description":{"en-US":"Indicates the actor caused an event (e.g. a meeting) to be paused or put on hold.
-        It is expected (but not required) that the event will be resumed at a future point in time."}
+        "description":{"en-US":"Indicates the actor temporarily ended an event (e.g. a meeting). 
+        It is expected (but not required) that the event will be resumed at a future point in time. The 
+        actor of the statement should be somebody who has authority to adjourn the event, for example the event organizer."
     },
     "http://id.tincanapi.com/extension/observer": {
         "name":{"en-US":"observer"},
