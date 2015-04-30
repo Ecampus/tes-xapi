@@ -300,7 +300,7 @@ Some events relating to attendance are beyond the scope of this recipe:
 These will be covered by additional recipes as required. 
 
 ### Elapsed Time
-Thie recipe has a concept of **Elapsed Time** which is the time during which an event is open. Elaspsed time does not accumulate whilst an event is adjourned. 
+Thie recipe has a concept of **Elapsed Time** which is the time during which an event is open. Elapsed time does not accumulate whilst an event is adjourned. 
 
 For example, consider the following statements on a given day:
 
@@ -334,6 +334,7 @@ And with some attendees joining the meeting:
 Or, perhaps with some timing:
     
     Jeff opened the meeting
+    Jeff joined the meeting
     Kylie joined the meeting
     Ken joined the meeting
     Kylie left the meeting
@@ -347,6 +348,7 @@ Or, perhaps with some timing:
 ... some time later ...
     
     Jeff closed the meeting
+    Jeff left the meeting
     
 Or with registration:
 
@@ -376,15 +378,15 @@ Although missing statements are not recommended (e.g. an event that has no 'open
 
 For example, an admin might do this by adding a meeting to a calendar, for instance, or by scheduling a training session.
 
-**Actor**: The person scheduling the event (such as an administrator).
+**actor**: The person scheduling the event (such as an administrator).
 
-**Verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
+**verb**: [http://activitystrea.ms/schema/1.0/schedule](http://activitystrea.ms/schema/1.0/schedule) 
 
-**context.instructor**: the agent that who will be conducting the event. 
+**context.instructor**: the agent who will be conducting the event. 
 
 **timestamp**: the datetime when the scheduling happened **not** the datetime when the event is scheduled for. (See context.extensions below.)
 
-**result.duration**: none.
+**result.duration**: not included.
 
 **context.extensions.http://id.tincanapi.com/extension/planned-start-time**: (optional) the planned starting datetime for the event.
 
@@ -394,7 +396,7 @@ For example, an admin might do this by adding a meeting to a calendar, for insta
 
 #### Registered & Unregistered (optional)
 
-The actor property of the Registered and Unregistered statements is the *person who registered for or unregistered from the event*. It's analogous to a person (the actor) filling his or her own name on a form to register on unregister for a meeting, conference or whatever it may be. In this case Kylie (the actor) is registering to attend the meeting:
+The actor property of the Registered and Unregistered statements is the *person who registered for or unregistered from the event*. It's analogous to a person (the actor) filling his or her own name on a form to register or unregister for a meeting, conference or whatever it may be. In this case Kylie (the actor) is registering to attend the meeting:
 
     Kylie Attendee registered for the meeting.
 
@@ -412,15 +414,15 @@ More complex scenarios - invites, RSVPS, etc - will be covered by additional rec
 
 A person can **register** as planning to attend -- this adds the person to the list of people who *might* attend.
 
-**Actor**: The person registering *for* the event.
+**actor**: The person registering *for* the event.
 
-**Verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
+**verb**: [http://adlnet.gov/expapi/verbs/registered](http://adlnet.gov/expapi/verbs/registered)
 
 **context.instructor**: the agent who will be conducting the event. 
 
-**timestamp**: the datetime when the registration happened **not** the datetime of the the event registered for.
+**timestamp**: the datetime when the registration happened **not** the datetime of the event registered for.
 
-**result.duration**: none.
+**result.duration**: not included.
 
 ##### Unregistered (optional)
 
@@ -428,15 +430,15 @@ A person can **register** as planning to attend -- this adds the person to the l
 
 A person can **unregister** as planning to attend -- this removes the person from the list of people who *might* attend.
 
-**Actor**: The person unregistering *from* the the event.
+**actor**: The person unregistering *from* the event.
 
-**Verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
+**verb**: [http://id.tincanapi.com/verb/unregistered](http://id.tincanapi.com/verb/unregistered)
 
 **context.instructor**: the agent who will be conducting the event. 
 
 **timestamp**: the datetime when the unregistration happened **not** the datetime of the event unregistered from.
 
-**result.duration**: none.
+**result.duration**: not included.
 
 ---
 
@@ -450,15 +452,15 @@ Optionally, **open** the meeting. You do this when you start proceedings. You on
 
 When the event is opened, time starts elapsing for the event.
 
-**Actor**: The person opening the event. Could also the the context.instructor.
+**actor**: The person opening the event. Could also be the context.instructor.
 
-**Verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
+**verb**: [http://activitystrea.ms/schema/1.0/open](http://activitystrea.ms/schema/1.0/open) 
 
 **context.instructor**: the agent opening the event.
 
 **timestamp**: the datetime when the event was opened.
 
-**result.duration**: none.
+**result.duration**: not included.
 
 ---
 
@@ -476,9 +478,9 @@ You can send *multiple* **joined** and **left** statements over time for attende
 
 State who joined what is being attended.
 
-**Actor**: the person joining the event.
+**actor**: the person joining the event.
 
-**Verb**: [http://activitystrea.ms/schema/1.0/join](http://activitystrea.ms/schema/1.0/join)
+**verb**: [http://activitystrea.ms/schema/1.0/join](http://activitystrea.ms/schema/1.0/join)
 
 **context.instructor**: the agent conducting the event that the actor joined.
 
@@ -492,9 +494,9 @@ State who joined what is being attended.
 
 State who left what is being attended.
 
-**Actor**: The person leaving the event.
+**actor**: The person leaving the event.
 
-**Verb**: [http://activitystrea.ms/schema/1.0/leave](http://activitystrea.ms/schema/1.0/leave) 
+**verb**: [http://activitystrea.ms/schema/1.0/leave](http://activitystrea.ms/schema/1.0/leave) 
 
 **context.instructor**: the agent conducting the event that the actor left.
 
@@ -517,11 +519,11 @@ When an event is adjourned time stops elapsing for the event. When it is resumed
 
     Jeff adjourned the meeting
 
-Adjourn the meeting, with the the intention of resuming it later. When an event is adjourned, *adjournment time* starts elapsing.
+Adjourn the meeting, with the intention of resuming it later. When an event is adjourned, *adjournment time* starts elapsing.
 
-**Actor**: The person adjourning the event. (Often the same person as the context.instructor.)
+**actor**: The person adjourning the event. (Often the same person as the context.instructor.)
 
-**Verb**: [http://id.tincanapi.com/verb/adjourned](http://id.tincanapi.com/verb/adjourned)
+**verb**: [http://id.tincanapi.com/verb/adjourned](http://id.tincanapi.com/verb/adjourned)
 
 **context.instructor**: the agent conducting the adjourned event. It is usually the same agent as the actor, but not always.
 
@@ -535,9 +537,9 @@ Adjourn the meeting, with the the intention of resuming it later. When an event 
 
 Resume what is being attended.
 
-**Actor**: the person resuming the event. (Often the same person as the context.instructor.)
+**actor**: the person resuming the event. (Often the same person as the context.instructor.)
 
-**Verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
+**verb**: [http://adlnet.gov/expapi/verbs/resumed](http://adlnet.gov/expapi/verbs/resumed)  
 
 **context.instructor**: the agent conducting the resumed event. It is usually the same agent as the actor, but not always.
 
@@ -553,9 +555,9 @@ Resume what is being attended.
 
 Once what is being attended is over, you can **close** it.
 
-**Actor**: The person closing the event. (Often the same person as the context.instructor.)
+**actor**: The person closing the event. (Often the same person as the context.instructor.)
 
-**Verb**: [http://activitystrea.ms/schema/1.0/close](http://activitystrea.ms/schema/1.0/close) 
+**verb**: [http://activitystrea.ms/schema/1.0/close](http://activitystrea.ms/schema/1.0/close) 
 
 **context.instructor**: the agent who was conducting the now closed event. It is usually the same agent as the actor, but not always.
 
