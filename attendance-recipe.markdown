@@ -529,7 +529,7 @@ Adjourn the meeting, with the intention of resuming it later. When an event is a
 
 **timestamp**: the datetime when the event was adjourned.
 
-**result.duration**: (optional) the time elapsed for the event up to the point the event was adjourned.
+**result.duration**: (optional) the time elapsed since the last opened or resumed statement.
 
 ##### Resumed (optional)
 
@@ -545,7 +545,7 @@ Resume what is being attended.
 
 **timestamp**: the datetime when the event was resumed.
 
-**result.duration**: (optional) the adjournment time elapsed between when the event was adjourned and the event resumed.
+**result.duration**: (optional) the time elapsed since the last adjourned statement.
 
 ---
 
